@@ -40,7 +40,7 @@ Simplify billing management by ensuring accurate and timely billing reducing wor
  
  Tyler Rodriguez, full-stack developer
  
- Swetchha Shrestha, full-stack developer
+ Swechha Shrestha, full-stack developer
  
  Iesa Mohammed, full-stack developer
  
