@@ -42,5 +42,5 @@ Simplify billing management by ensuring accurate and timely billing reducing wor
  
  Swechha Shrestha, full-stack developer
  
- Iesa Mohammed, full-stack developer
+ Mohammed Thameezudeen, full-stack developer
  
