@@ -1,4 +1,3 @@
-// components/LoginForm.jsx
 import { Link } from "react-router-dom";
 import "../styles/LoginForm.css";
 
@@ -29,6 +28,13 @@ const LoginForm = ({ role, onSubmit, error }) => {
                     />
                 </div>
                 <button type="submit">Login</button>
+
+                <p style={{ textAlign: "center", marginTop: "10px" }}>
+                   Forgot Password?{" "}
+                   <Link to="/forgot-password" style={{ color: "blue", textDecoration: "underline" }}>
+                       Click Here
+                  </Link>
+                </p>
 
                 <p className="switch-role-text">
                     Don't have an account?{" "}
