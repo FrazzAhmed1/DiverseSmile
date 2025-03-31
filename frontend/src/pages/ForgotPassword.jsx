@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../styles/ForgotPassword.css";
 
-const ForgotPassword = () => {
+const ForgotPassword = () => { 
     const navigate = useNavigate(); // Initialize useNavigate
     const [formData, setFormData] = useState({
         firstName: "",
