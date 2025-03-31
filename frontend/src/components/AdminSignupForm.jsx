@@ -4,70 +4,119 @@ import { Link } from "react-router-dom";
 import "../styles/SignupForm.css";
 
 const AdminSignupForm = ({ onSubmit, message, privateKey, type }) => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    privateKey: "",
-  });
+    const [formData, setFormData] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        privateKey: "",
+    });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(formData);
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onSubmit(formData);
+    };
 
-  return (
-    <div className="signup-container">
-      <Link to="/" className="go-back-button">Go Back</Link>
-      <h2>{type === "signup" ? "Admin Signup" : "Admin Login"}</h2>
+    return (
+        <div className="signup-container">
+            <Link to="/" className="go-back-button">Go Back</Link>
+            <h2>{type === "signup" ? "Admin Signup" : "Admin Login"}</h2>
 
-      <form className="signup-form" onSubmit={handleSubmit}>
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+            <form className="signup-form" onSubmit={handleSubmit}>
+                {type === "signup" ? (
+                    <>
+                        <div className="form-group">
+                            <label>First Name</label>
+                            <input
+                                type="text"
+                                name="firstName"
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Last Name</label>
+                            <input
+                                type="text"
+                                name="lastName"
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Email</label>
+                            <input
+                                type="email"
+                                name="email"
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <div className="form-group">
+                            <label>Email</label>
+                            <input
+                                type="email"
+                                name="email"
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Private Key</label>
+                            <input
+                                type="password"
+                                name="privateKey"
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                    </>
+                )}
 
-        {type === "signup" && (
-          <>
-            <input type="text" name="firstName" placeholder="First Name" onChange={handleChange} required />
-            <input type="text" name="lastName" placeholder="Last Name" onChange={handleChange} required />
-          </>
-        )}
+                <button type="submit">{type === "signup" ? "Sign Up" : "Login"}</button>
+            </form>
 
-        {type === "login" && (
-          <input type="text" name="privateKey" placeholder="Private Key" onChange={handleChange} required />
-        )}
+            {type === "signup" && (
+                <>
+                    {privateKey && (
+                        <div className="message">
+                            <p><strong>Your Private Key (save this!):</strong></p>
+                            <code>{privateKey}</code>
+                            <p className="switch-role-text">
+                                Already have an account? <Link to="/admin/login" className="switch-role-link">Login</Link>
+                            </p>
+                        </div>
+                    )}
+                    {!privateKey && (
+                        <p className="switch-role-text">
+                            Already have an account? <Link to="/admin/login" className="switch-role-link">Login</Link>
+                        </p>
+                    )}
+                </>
+            )}
 
-        <button type="submit">{type === "signup" ? "Sign Up" : "Login"}</button>
-      </form>
+            {type === "login" && (
+                <>
+                    <p className="switch-role-text">
+                        Don't have an account? <Link to="/admin/signup" className="switch-role-link">Sign up</Link>
+                    </p>
+                    <p className="switch-role-text">
+                        <Link to="/admin/forgot-password" className="switch-role-link">
+                            Forgot your private key?
+                        </Link>
+                    </p>
+                </>
+            )}
 
-      {privateKey && (
-        <>
-          <div className="message">
-            <p><strong>Your Private Key (save this!):</strong></p>
-            <code>{privateKey}</code>
-          </div>
-          <p className="switch-role-text">
-            Ready to login? <Link to="/admin/login" className="switch-role-link">Click here</Link>
-          </p>
-        </>
-      )}
-
-
-      {message && <div className="message">{message}</div>}
-
-      {type === "signup" ? (
-        <p className="switch-role-text">
-          Already have an account? <Link to="/admin/login" className="switch-role-link">Login</Link>
-        </p>
-      ) : (
-        <p className="switch-role-text">
-          Don't have an account? <Link to="/admin/signup" className="switch-role-link">Sign up</Link>
-        </p>
-      )}
-    </div>
-  );
+            {message && <div className="message">{message}</div>}
+        </div>
+    );
 };
 
 export default AdminSignupForm;
