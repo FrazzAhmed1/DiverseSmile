@@ -26,7 +26,7 @@ const App = () => {
         <Route path="/patient-dashboard" element={<PatientDashboard />} />
         <Route path="/staff-dashboard" element={<StaffDashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        <Route path="/admin/forgot-password" element={<ForgotPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
