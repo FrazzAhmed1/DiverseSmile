@@ -6,6 +6,7 @@ import staffRoutes from "./routes/staffRoutes.js";
 import patientLogRoutes from "./routes/patientLogRoutes.js"; 
 import staffLogRoutes from "./routes/staffLogRoutes.js";   
 import adminRoutes from "./routes/adminRoutes.js"  
+import authRoutes from './routes/authRoutes.js';
 import cors from "cors"; // Import the cors middleware run npm install cors
 
 const app = express();
@@ -21,6 +22,9 @@ app.use("/api/staff", staffRoutes);
 app.use("/api/patient-auth", patientLogRoutes); 
 app.use("/api/staff-auth", staffLogRoutes);   
 app.use("/api/admin", adminRoutes);
+app.use('/api/auth', authRoutes);
+
+
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
