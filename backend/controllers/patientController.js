@@ -1,5 +1,6 @@
 import Patient from "../models/patientModel.js";
 import generateToken from "../utils/generateToken.js";
+import { sendEmail } from '../config/nodemailer.js';
 
 // @desc    Register a new patient
 // @route   POST /api/patients/register
@@ -23,6 +24,17 @@ export const registerPatient = async (req, res) => {
     });
 
     if (patient) {
+      // Send welcome email
+      await sendEmail({
+        to: patient.email, // or staff.email
+        subject: 'Welcome to DiverseSmile!',
+        html: `
+      <h1>Welcome, ${patient.firstName}!</h1>
+      <p>Thank you for registering with DiverseSmile.</p>
+      <p>You can now book appointments and manage your dental care with us.</p>
+      <p>If you have any questions, please contact our support team.</p>
+    `,
+      });
       res.status(201).json({
         _id: patient._id,
         firstName: patient.firstName,
