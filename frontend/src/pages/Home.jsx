@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "../styles/Home.css";
 import React from "react";
 import DiverseSmileLogo from "/src/assets/DiverseSmileLogo.png";
-import Smile from "/src/assets/smile.jpg";
+import Smile from "/src/assets/Smile.jpg";
 
 const services = [
   {
@@ -47,20 +47,20 @@ const Home = () => {
           DiverseSmile
         </div>
         <div className="nav-buttons">
-          <button className="nav-btn">Login</button>
-          <button className="nav-btn">Sign up</button>
+          <Link to="/patient-login" className="nav-btn">Login</Link>
+          <Link to="/patient-signup" className="nav-btn">Sign up</Link>
         </div>
       </nav>
-  
+
       {/* Hero Section */}
       <div className="hero-section">
         <div className="image-container">
-          <img src={Smile} alt="Hero Image" className="hero-image" />      
+          <img src={Smile} alt="Hero Image" className="hero-image" />
         </div>
         <div className="text-container">
           <h1>Your Smile, <br /> Our Priority</h1>
-          <p>Choose us and get the best dental services in the city.</p>
-          <p>Rates and charges vary.</p>
+          <p>Choose us and get the best dental services in</p>
+          <p>the city. Rates and charges vary.</p>
           <button className="appointment-btn">Make an appointment</button>
         </div>
       </div>
