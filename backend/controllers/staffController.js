@@ -1,5 +1,7 @@
 import Staff from "../models/staffModel.js";
 import generateToken from "../utils/generateToken.js";
+import { sendEmail } from '../config/nodemailer.js';
+
 
 // @desc    Register a new staff member
 // @route   POST /api/staff/register
@@ -23,6 +25,17 @@ export const registerStaff = async (req, res) => {
     });
 
     if (staff) {
+      // Send welcome email
+      await sendEmail({
+        to: staff.email, // or staff.email
+        subject: 'Welcome to DiverseSmile!',
+        html: `
+      <h1>Welcome, ${staff.firstName}!</h1>
+      <p>Thank you for registering with DiverseSmile.</p>
+      <p>You can now book appointments and manage your dental care with us.</p>
+      <p>If you have any questions, please contact our support team.</p>
+    `,
+      });
       res.status(201).json({
         _id: staff._id,
         firstName: staff.firstName,
