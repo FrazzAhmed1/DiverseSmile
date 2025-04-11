@@ -6,13 +6,6 @@
   font-family: Arial;
 }
 
-body {
-  background-color: #A1EAEA;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
 .go-back-button {
   position: absolute;
   top: 20px;
@@ -22,6 +15,16 @@ body {
   padding: 4px 10px;
   border: 1px solid black;
   border-radius: 4px;
+}
+.go-back-button:hover {
+  background-color: cyan;
+}
+.signup-page {
+  background-color: #A1EAEA;
+  min-height: 100vh; 
+  width: 100%; 
+  padding: 20px; 
+  box-sizing: border-box;
 }
 
 .signup-container {
@@ -53,7 +56,7 @@ input {
   margin-top: 5px;
 }
 
-button {
+.auth-submit-btn {
   width: 100%;
   padding: 12px;
   background-color: #007bff;
@@ -62,9 +65,10 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
-button:hover {
+.auth-submit-btn:hover {
   background-color: #0056b3;
 }
 
