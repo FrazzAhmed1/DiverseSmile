@@ -1,0 +1,117 @@
+.reminder-container {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+   }
+   
+   
+   .reminder-container h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+   }
+   
+   
+   .reminder-container p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #555;
+   }
+   .reminder-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+   }
+   
+   
+   .reminder-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+   }
+   
+   
+   .reminder-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+   }
+   
+   
+   .reminder-btn:hover {
+    background-color: #0056b3;
+   }
+   
+   
+   .reminder-message {
+    margin-top: 20px;
+    font-size: 16px;
+    color: green;
+   }
+   
+   
+   /* Navbar styles */
+   .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 10px;
+    background-color: #A1EAEA;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    margin: 0;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+   }
+   
+   
+   .navbar .logo {
+    display: flex;
+    align-items: center;
+    font-size: 38px;
+    font-weight: bold;
+   }
+   
+   
+   .navbar .logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+   }
+   
+   
+   .nav-buttons {
+    display: flex;
+    gap: 20px;
+   }
+   
+   
+   .nav-buttons button {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    padding: 8px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 20px;
+   }
+   
+   
+   .nav-buttons button:hover {
+    background-color: #ddd;
+   }
+         
