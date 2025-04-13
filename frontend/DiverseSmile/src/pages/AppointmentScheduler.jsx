@@ -1,4 +1,5 @@
 // AppointmentScheduler.jsx
+import { Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -95,8 +96,9 @@ const AppointmentScheduler = () => {
           DiverseSmile
         </div>
         <div className="nav-buttons">
-          <button className="nav-btn">Dashboard</button>
+          <Link to="/patient-dashboard" className="nav-btn">Dashboard</Link>
           <button className="nav-btn">Logout</button>
+          <Link to="/schedule-reminder" className="nav-btn">Set a Reminder</Link>
         </div>
       </nav>
 
