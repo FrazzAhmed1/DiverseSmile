@@ -1,0 +1,74 @@
+.otp-verification-page {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #a1eaea;
+}
+
+.otp-verification-container {
+    max-width: 400px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.otp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.otp-input-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.otp-input-box {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    text-align: center;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+.otp-input-box:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.otp-submit-button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.otp-submit-button:hover {
+    background-color: #0056b3;
+}
+
+.resend-code-button {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 14px;
+    background-color: transparent;
+    color: #007bff;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.resend-code-button:hover {
+    color: #0056b3;
+}
