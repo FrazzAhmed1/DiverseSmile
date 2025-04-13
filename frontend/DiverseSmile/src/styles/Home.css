@@ -15,7 +15,7 @@
   z-index: 1000;
   /* Ensure it stays above other elements */
   margin: 0;
-  /* Remove any default margin *
+  /* Remove any default margin */
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   /* Optional: Add a subtle shadow for better visibility */
 }
@@ -89,7 +89,7 @@
   /* Add spacing between the image and text */
   margin-top: 100px;
   /* Add some spacing above the hero section */
-  padding: 80px;
+  padding: 160px;
   /* Optional: Add padding for better spacing */
 }
 
@@ -153,7 +153,7 @@
   /* Adjust spacing between paragraphs */
   font-size: 20px;
   /* Ensure consistent font size */
-  line-height: 1.5;
+  line-height: .5;
   /* Improve readability */
 }
 
@@ -285,4 +285,19 @@
   margin: 8px 0;
   /* Add spacing between paragraphs */
   margin-left: 30px;
+}
+.form-input {
+  width: 100%;
+  max-width: 280px;
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: #4bc0c8;
+  box-shadow: 0 0 0 2px rgba(75, 192, 200, 0.3);
 }
