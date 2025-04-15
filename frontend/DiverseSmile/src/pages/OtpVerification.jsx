@@ -4,6 +4,8 @@ import "../styles/OtpVerification.css";
 
 const OtpVerification = () => {
     const [otp, setOtp] = useState(new Array(6).fill(""));
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (element, index) => {
@@ -25,14 +27,81 @@ const OtpVerification = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Entered OTP:", otp.join(""));
-        navigate("/create-new-password");
+        setLoading(true);
+        setError("");
+
+        const code = otp.join("");
+        const email = localStorage.getItem('resetEmail');
+        const role = localStorage.getItem('userRole');
+
+        if (!email || !role) {
+            setError("Session expired. Please start the reset process again.");
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:5000/api/auth/verify-reset-code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, code, role }) // Include role in verification
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Invalid verification code');
+            }
+
+            localStorage.setItem('resetCode', code);
+            navigate("/create-new-password");
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const handleResendCode = () => {
-        console.log("Resend OTP code");
+    const handleResendCode = async () => {
+        setLoading(true);
+        setError("");
+        const email = localStorage.getItem('resetEmail');
+        const role = localStorage.getItem('userRole');
+
+        if (!email || !role) {
+            setError("Session expired. Please start the reset process again.");
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:5000/api/auth/forgot-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email,
+                    role,
+                    firstName: "", // These might be needed by your backend
+                    lastName: ""
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to resend code');
+            }
+
+            alert("New verification code sent!");
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -40,6 +109,7 @@ const OtpVerification = () => {
             <div className="otp-verification-container">
                 <h2>OTP Verification</h2>
                 <p>Please enter the 6-digit code sent to your email.</p>
+                {error && <div className="error-message">{error}</div>}
                 <form onSubmit={handleSubmit} className="otp-form">
                     <div className="otp-input-container">
                         {otp.map((digit, index) => (
@@ -54,13 +124,14 @@ const OtpVerification = () => {
                             />
                         ))}
                     </div>
-                    <button type="submit" className="otp-submit-button">
-                        Enter
+                    <button
+                        type="submit"
+                        className="otp-submit-button"
+                        disabled={loading}
+                    >
+                        {loading ? 'Verifying...' : 'Enter'}
                     </button>
                 </form>
-                <button onClick={handleResendCode} className="resend-code-button">
-                    Resend Code
-                </button>
             </div>
         </div>
     );

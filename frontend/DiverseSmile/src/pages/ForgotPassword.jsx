@@ -8,7 +8,10 @@ const ForgotPassword = () => {
         firstName: "",
         lastName: "",
         email: "",
+        role: "patient" // Default to patient
     });
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -18,17 +21,55 @@ const ForgotPassword = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Reset Password Request:", formData);
-        navigate("/otp-verification"); // Redirect to OTP verification page
+        setLoading(true);
+        setError("");
+
+        try {
+            const response = await fetch('http://localhost:5000/api/auth/forgot-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to send reset code');
+            }
+
+            // Store email AND role for the next steps
+            localStorage.setItem('resetEmail', formData.email);
+            localStorage.setItem('userRole', formData.role);
+            navigate("/otp-verification");
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <div className="forgot-password-page">
             <div className="forgot-password-container">
                 <h2>Forgot Password</h2>
+                {error && <div className="error-message">{error}</div>}
                 <form onSubmit={handleSubmit} className="forgot-password-form">
+                    <div className="form-group">
+                        <label>I am a:</label>
+                        <select
+                            name="role"
+                            value={formData.role}
+                            onChange={handleChange}
+                            className="role-select"
+                        >
+                            <option value="patient">Patient</option>
+                            <option value="staff">Staff Member</option>
+                        </select>
+                    </div>
                     <div className="form-group">
                         <label>First Name</label>
                         <input
@@ -59,8 +100,12 @@ const ForgotPassword = () => {
                             required
                         />
                     </div>
-                    <button type="submit" className="reset-password-button">
-                        Reset Password
+                    <button
+                        type="submit"
+                        className="reset-password-button"
+                        disabled={loading}
+                    >
+                        {loading ? 'Sending...' : 'Reset Password'}
                     </button>
                 </form>
             </div>

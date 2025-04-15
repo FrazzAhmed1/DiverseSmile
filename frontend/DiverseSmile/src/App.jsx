@@ -10,6 +10,8 @@ import PatientDashboard from "./pages/PatientDashboard";
 import StaffDashboard from "./pages/StaffDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import ForgotPassword from "./pages/ForgotPassword";
+import OtpVerification from "./pages/OtpVerification";
+import CreateNewPassword from "./pages/CreateNewPassword";
 import AppointmentScheduler from "./pages/AppointmentScheduler";
 import Reminder from "./pages/Reminder";
 import NotFound from "./pages/NotFound";
@@ -29,6 +31,8 @@ const App = () => {
         <Route path="/staff-dashboard" element={<StaffDashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/otp-verification" element={<OtpVerification />} />
+        <Route path="/create-new-password" element={<CreateNewPassword />} />
         <Route path="/schedule" element={<AppointmentScheduler />} />
         <Route path="/schedule-reminder" element={<Reminder />} />
         <Route path="*" element={<NotFound />} />
