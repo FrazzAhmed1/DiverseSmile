@@ -32,11 +32,11 @@ Simplify billing management by ensuring accurate and timely billing reducing wor
 
 #### Multiple User System
 
-Website accomodates three types of logins ans signups. Patient, Staff and Administration. Allows for multiple types of users to do complete their daily tasks and needs.
+Website accomodates three types of logins and signups. Patient, Staff and Administration. Allows for multiple types of users to complete their daily tasks and perform needs.
 
 #### Reminders and Notifications
 
-Allows email reminders and notifications for changing password, setting up appointments and setting up multiple types of accounts. Allows for direct communication and frequent reminders to improve communication flow between staff, admind and most importantly the patients. 
+Allows email reminders and notifications for changing password, setting up appointments and setting up multiple types of accounts. Allows for direct communication and frequent reminders to improve communication flow between staff, admin and most importantly the patients. 
 
 
 ## Contributors 
