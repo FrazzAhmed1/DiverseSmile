@@ -30,6 +30,15 @@ Allows users to make appointments displaying availability and time for smooth op
 
 Simplify billing management by ensuring accurate and timely billing reducing workload 
 
+#### Multiple User System
+
+Website accomodates three types of logins ans signups. Patient, Staff and Administration. Allows for multiple types of users to do complete their daily tasks and needs.
+
+#### Reminders and Notifications
+
+Allows email reminders and notifications for changing password, setting up appointments and setting up multiple types of accounts. Allows for direct communication and frequent reminders to improve communication flow between staff, admind and most importantly the patients. 
+
+
 ## Contributors 
 
  Fraz Ahmed, full-stack developer
