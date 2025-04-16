@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "../styles/Dashboard.css";
+import LogHours from "../components/LogHours";
+
 
 const StaffDashboard = () => {
     const [activeTab, setActiveTab] = useState("welcome");
@@ -15,13 +17,9 @@ const StaffDashboard = () => {
                         <p>📅 This is your schedule section (coming soon!)</p>
                     </div>
                 );
-            case "logHours":
-                return (
-                    <div className="dashboard-tips">
-                        <h2>Log Hours</h2>
-                        <p>🕒 Here you can log your work hours.</p>
-                    </div>
-                );
+           case "logHours":
+              return <LogHours />;
+
             case "payroll":
                 return (
                     <div className="dashboard-tips">
