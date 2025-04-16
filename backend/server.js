@@ -3,10 +3,12 @@ import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
 import patientRoutes from "./routes/patientRoutes.js";
 import staffRoutes from "./routes/staffRoutes.js";
-import patientLogRoutes from "./routes/patientLogRoutes.js"; 
-import staffLogRoutes from "./routes/staffLogRoutes.js";   
-import adminRoutes from "./routes/adminRoutes.js"  
+import patientLogRoutes from "./routes/patientLogRoutes.js";
+import staffLogRoutes from "./routes/staffLogRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js"
 import authRoutes from './routes/authRoutes.js';
+import appointmentRoutes from './routes/appointmentRoutes.js';
+import reminderRoutes from './routes/reminderRoutes.js';
 import cors from "cors"; // Import the cors middleware run npm install cors
 
 const app = express();
@@ -19,10 +21,14 @@ app.use(cors()); // Enable CORS for all routes
 // Routes
 app.use("/api/patients", patientRoutes);
 app.use("/api/staff", staffRoutes);
-app.use("/api/patient-auth", patientLogRoutes); 
-app.use("/api/staff-auth", staffLogRoutes);   
+app.use("/api/patient-auth", patientLogRoutes);
+app.use("/api/staff-auth", staffLogRoutes);
 app.use("/api/admin", adminRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/appointments', appointmentRoutes);
+app.use('/api/reminders', reminderRoutes);
+
+
 
 
 // Start server

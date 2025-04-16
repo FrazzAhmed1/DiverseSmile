@@ -61,7 +61,7 @@ const Home = () => {
           <h1>Your Smile, <br /> Our Priority</h1>
           <p>Choose us and get the best dental services in</p>
           <p>the city. Rates and charges vary.</p>
-          <button className="appointment-btn">Make an appointment</button>
+          <Link to="/patient-login" className="appointment-btn">Make an appointment</Link>
         </div>
       </div>
 

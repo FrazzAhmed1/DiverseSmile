@@ -1,4 +1,3 @@
-// AppointmentScheduler.jsx
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
@@ -13,11 +12,18 @@ const AppointmentScheduler = () => {
   const [cancelMsg, setCancelMsg] = useState('');
   const [appointments, setAppointments] = useState([]);
   const [reschedulingId, setReschedulingId] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const timeSlots = [
     '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
     '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM',
   ];
+
+  // Fetch appointments on component mount
+  useEffect(() => {
+    fetchAppointments();
+  }, []);
 
   useEffect(() => {
     if (confirmation) {
@@ -26,46 +32,98 @@ const AppointmentScheduler = () => {
     }
   }, [confirmation]);
 
-  const handleSubmit = (e) => {
+  const fetchAppointments = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/appointments/patient', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      const data = await response.json();
+      if (response.ok) {
+        const formattedAppointments = data
+          .filter(appt => appt.status !== 'cancelled') 
+          .map(appt => ({
+            ...appt,
+            date: new Date(appt.date).toLocaleDateString(undefined, {
+              weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            })
+          }));
+        setAppointments(formattedAppointments);
+      } else {
+        throw new Error(data.message || 'Failed to fetch appointments');
+      }
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
+
     if (!selectedDate || !selectedTime) {
+      a
       setConfirmation("⚠️ Please select both a date and time.");
+      setLoading(false);
       return;
     }
 
-    const formattedDate = selectedDate.toLocaleDateString(undefined, {
-      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-    });
+    try {
+      if (reschedulingId) {
+        // Handle rescheduling
+        const response = await fetch(`http://localhost:5000/api/appointments/${reschedulingId}/reschedule`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
+          body: JSON.stringify({
+            date: selectedDate.toISOString(),
+            time: selectedTime
+          })
+        });
 
-    const exists = appointments.some(appt =>
-      appt.date === formattedDate && appt.time === selectedTime
-    );
-    if (exists && !reschedulingId) {
-      setConfirmation(`⚠️ You already have an appointment for ${formattedDate} at ${selectedTime}`);
-      return;
-    }
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.message || 'Failed to reschedule appointment');
+        }
 
-    if (reschedulingId) {
-      const updated = appointments.map(appt =>
-        appt.id === reschedulingId
-          ? { ...appt, date: formattedDate, time: selectedTime }
-          : appt
-      );
-      setAppointments(updated);
-      setConfirmation(`🔄 Appointment rescheduled to ${formattedDate} at ${selectedTime}`);
+        setConfirmation(`🔄 Appointment rescheduled to ${selectedDate.toLocaleDateString()} at ${selectedTime}`);
+      } else {
+        // Handle new appointment
+        const response = await fetch('http://localhost:5000/api/appointments', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
+          body: JSON.stringify({
+            date: selectedDate.toISOString(),
+            time: selectedTime
+          })
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.message || 'Failed to book appointment');
+        }
+
+        setConfirmation(`✅ Appointment confirmed for ${selectedDate.toLocaleDateString()} at ${selectedTime}`);
+      }
+
+      // Refresh appointments and reset form
+      await fetchAppointments();
+      setSelectedDate(null);
+      setSelectedTime('');
       setReschedulingId(null);
-    } else {
-      const newAppointment = {
-        id: Date.now(),
-        date: formattedDate,
-        time: selectedTime
-      };
-      setAppointments([newAppointment, ...appointments]);
-      setConfirmation(`✅ Appointment confirmed for ${formattedDate} at ${selectedTime}`);
+    } catch (err) {
+      setError(err.message);
+      setConfirmation(`⚠️ ${err.message}`);
+    } finally {
+      setLoading(false);
     }
-
-    setSelectedDate(null);
-    setSelectedTime('');
   };
 
   const handleReset = () => {
@@ -75,10 +133,26 @@ const AppointmentScheduler = () => {
     setReschedulingId(null);
   };
 
-  const handleDelete = (id, date, time) => {
-    setAppointments(appointments.filter(appt => appt.id !== id));
-    setCancelMsg(`❌ Appointment for ${date} at ${time} has been cancelled`);
-    setTimeout(() => setCancelMsg(''), 3000);
+  const handleDelete = async (id, date, time) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/appointments/${id}/cancel`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || 'Failed to cancel appointment');
+      }
+
+      setCancelMsg(`❌ Appointment for ${date} at ${time} has been cancelled`);
+      setTimeout(() => setCancelMsg(''), 3000);
+      await fetchAppointments(); // Refresh the list
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   const handleReschedule = (id) => {
@@ -104,6 +178,7 @@ const AppointmentScheduler = () => {
 
       <div className="dashboard-container" style={{ marginTop: "140px", padding: "40px", borderRadius: "20px", backgroundColor: "#b2ebf2" }}>
         <h1 style={{ fontSize: "32px", marginBottom: "10px" }}>📅 Schedule Your Appointment</h1>
+        {error && <div className="error-message" style={{ color: 'red', marginBottom: '20px' }}>{error}</div>}
         <p style={{ fontSize: "18px", color: "#333", marginBottom: "30px" }}>
           Please choose a day and time for your dental visit below.
         </p>
@@ -126,6 +201,7 @@ const AppointmentScheduler = () => {
               value={selectedTime}
               onChange={(e) => setSelectedTime(e.target.value)}
               className="form-input"
+              disabled={loading}
             >
               <option value="">Select a time slot</option>
               {timeSlots.map((slot) => (
@@ -135,14 +211,20 @@ const AppointmentScheduler = () => {
           </div>
 
           <div style={{ marginTop: "20px", textAlign: "center" }}>
-            <button type="submit" className="appointment-btn" style={{ marginRight: "10px" }}>
-              {reschedulingId ? 'Confirm Reschedule' : 'Confirm Appointment'}
+            <button
+              type="submit"
+              className="appointment-btn"
+              style={{ marginRight: "10px" }}
+              disabled={loading}
+            >
+              {loading ? 'Processing...' : reschedulingId ? 'Confirm Reschedule' : 'Confirm Appointment'}
             </button>
             <button
               type="button"
               onClick={handleReset}
               className="nav-btn"
               style={{ padding: "6px 20px", fontSize: "14px" }}
+              disabled={loading}
             >
               {reschedulingId ? 'Cancel' : 'Reset'}
             </button>
@@ -156,8 +238,8 @@ const AppointmentScheduler = () => {
           <div style={{ marginTop: "40px", textAlign: "left" }}>
             <h2 style={{ fontSize: "24px", marginBottom: "10px" }}>📝 Upcoming Appointments</h2>
             <ul style={{ paddingLeft: 0, listStyle: 'none' }}>
-              {appointments.map(({ id, date, time }) => (
-                <li key={id} style={{
+              {appointments.map(({ _id, date, time }) => (
+                <li key={_id} style={{
                   backgroundColor: "#fff",
                   padding: "12px 16px",
                   borderRadius: "12px",
@@ -170,7 +252,7 @@ const AppointmentScheduler = () => {
                   <span>📍 <strong>{date}</strong> at <strong>{time}</strong></span>
                   <div>
                     <button
-                      onClick={() => handleReschedule(id)}
+                      onClick={() => handleReschedule(_id)}
                       style={{
                         backgroundColor: "#f0c14b",
                         color: "black",
@@ -180,11 +262,12 @@ const AppointmentScheduler = () => {
                         borderRadius: "20px",
                         cursor: "pointer"
                       }}
+                      disabled={loading}
                     >
                       🔄 Reschedule
                     </button>
                     <button
-                      onClick={() => handleDelete(id, date, time)}
+                      onClick={() => handleDelete(_id, date, time)}
                       style={{
                         backgroundColor: "#ff4d4d",
                         color: "white",
@@ -193,6 +276,7 @@ const AppointmentScheduler = () => {
                         borderRadius: "20px",
                         cursor: "pointer"
                       }}
+                      disabled={loading}
                     >
                       ❌ Cancel
                     </button>
