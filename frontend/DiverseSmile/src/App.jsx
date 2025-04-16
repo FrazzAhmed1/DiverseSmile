@@ -15,6 +15,7 @@ import CreateNewPassword from "./pages/CreateNewPassword";
 import AppointmentScheduler from "./pages/AppointmentScheduler";
 import Reminder from "./pages/Reminder";
 import NotFound from "./pages/NotFound";
+import Faq from "./pages/Faq";
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/schedule" element={<AppointmentScheduler />} />
         <Route path="/schedule-reminder" element={<Reminder />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/faq" element={<Faq />} />
       </Routes>
     </Router>
   );
