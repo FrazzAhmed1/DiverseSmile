@@ -14,6 +14,7 @@ import OtpVerification from "./pages/OtpVerification";
 import CreateNewPassword from "./pages/CreateNewPassword";
 import AppointmentScheduler from "./pages/AppointmentScheduler";
 import Reminder from "./pages/Reminder";
+import Faq from "./pages/Faq";
 import NotFound from "./pages/NotFound";
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/create-new-password" element={<CreateNewPassword />} />
         <Route path="/schedule" element={<AppointmentScheduler />} />
         <Route path="/schedule-reminder" element={<Reminder />} />
+        <Route path="/faq" element={<Faq />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
