@@ -80,6 +80,15 @@ const Home = () => {
           </div>
         </div>
       </div>
+      
+      {/* FAQ Section */}
+      <div className="faq-section">
+        <div className="faq-container">
+          <h2>Frequently Asked Questions</h2>
+          <p>Have questions? We have answers.</p>
+          <Link to="/faq" className="faq-btn">Read FAQs</Link>
+        </div>
+      </div>
 
       {/* Contact Us Section */}
       <div className="contact-section">
