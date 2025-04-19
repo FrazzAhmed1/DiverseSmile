@@ -1,0 +1,285 @@
+:root {
+    --primary-color: #2a5e5e;
+    --secondary-color: #a1eaea;
+    --accent-red: #ff6b6b;
+    --sidebar-bg: #a1eaea;
+    --light-bg: #f5fdfd;
+    --dark-text: #1a2e2e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background: var(--light-bg);
+}
+
+.professional-sidebar {
+    width: 360px;
+    background: var(--sidebar-bg);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.sidebar-header {
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.sidebar-header h1 {
+    color: var(--primary-color);
+    font-size: 28px;
+    margin-bottom: 40px;
+}
+
+.sidebar-header h1 span {
+    color: var(--primary-color);
+    display: block;
+    font-size: 20px;
+    margin-top: 5px;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: var(--primary-color);
+}
+
+.admin-info h2 {
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+.admin-info p {
+    color: var(--primary-color);
+    font-size: 14px;
+}
+
+.main-nav {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-item {
+    width: 100%;
+    padding: 18px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--primary-color);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.nav-item.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.sidebar-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    padding-top: 25px;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.main-content-area {
+    flex: 1;
+    padding: 40px;
+    margin-left: 360px;
+    min-height: 100vh;
+}
+
+.overview-screen {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.welcome-banner h1 {
+    font-size: 36px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.welcome-banner p {
+    color: var(--primary-color);
+    font-size: 18px;
+}
+
+.performance-screen {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.analysis-header {
+    margin-bottom: 50px;
+}
+
+.search-container {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    gap: 10px;
+    margin: 0 auto;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 30px;
+    font-size: 16px;
+}
+
+.search-btn {
+    padding: 16px 30px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.chart-container {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.main-pie {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    padding: 30px;
+    justify-content: center;
+}
+
+.pie {
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.pie-center {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    background: white;
+    border-radius: 50%;
+    top: 20%;
+    left: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pie-center span {
+    font-size: 36px;
+    color: var(--primary-color);
+}
+
+.chart-stats {
+    display: grid;
+    gap: 30px;
+}
+
+.stat {
+    text-align: center;
+    padding: 25px;
+    background: rgba(161, 234, 234, 0.1);
+    border-radius: 15px;
+}
+
+.stat-value {
+    font-size: 42px;
+    color: var(--primary-color);
+}
+
+.stat-value.cancelled {
+    color: var(--accent-red);
+}
+
+.attendance-screen {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.attendance-card {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.hours-display span {
+    font-size: 48px;
+    color: var(--primary-color);
+}
+
+@media (max-width: 1200px) {
+    .professional-sidebar {
+        width: 100%;
+        position: relative;
+        min-height: auto;
+    }
+    .main-content-area {
+        margin-left: 0;
+        padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-pie {
+        flex-direction: column;
+    }
+    .welcome-banner h1 {
+        font-size: 28px;
+    }
+}
