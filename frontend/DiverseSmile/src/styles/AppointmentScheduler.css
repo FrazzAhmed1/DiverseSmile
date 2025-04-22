@@ -1,0 +1,30 @@
+.appointment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 700px;
+    margin: 120px auto;
+    padding: 40px;
+    background-color: #A1EAEA;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .appointment-btn {
+    background-color: black;
+    color: rgb(255, 255, 255);
+    padding: 10px 25px;
+    border: 1px solid black;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 20px;
+    margin-top: 20px;
+    text-decoration: none;
+  }
+  
+  .appointment-btn:hover {
+    background-color: #A1EAEA;
+    border-color: black;
+  }
+  
