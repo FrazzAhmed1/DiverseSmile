@@ -5,19 +5,12 @@
   padding: 18px 10px;
   background-color: #A1EAEA;
   position: fixed;
-  /* Fix the navbar at the top */
   top: 0;
-  /* Ensure it starts at the very top */
   left: 0;
-  /* Align to the left edge */
   width: 100%;
-  /* Make it span the full width of the screen */
   z-index: 1000;
-  /* Ensure it stays above other elements */
   margin: 0;
-  /* Remove any default margin */
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  /* Optional: Add a subtle shadow for better visibility */
 }
 
 .navbar .logo {
@@ -80,39 +73,27 @@
 
 .hero-section {
   display: flex;
-  /* Use flexbox to align items side by side */
   justify-content: center;
-  /* Center the content horizontally */
   align-items: center;
-  /* Align items vertically */
   gap: 40px;
-  /* Add spacing between the image and text */
   margin-top: 100px;
-  /* Add some spacing above the hero section */
   padding: 160px;
-  /* Optional: Add padding for better spacing */
 }
 
 .image-container {
   flex: 1;
-  /* Allow the image container to take up equal space */
   display: flex;
   justify-content: center;
-  /* Center the image horizontally */
 }
 
 .hero-image {
   width: 600px;
-  /* Make the image responsive */
   max-width: 8900px;
-  /* Set a maximum width for the image */
   height: auto;
   border-radius: 20px;
-  /* Optional: Add rounded corners */
   margin-top: 90px;
   margin-right: 50px;
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
-  /* Optional: Add a shadow for better appearance */
 }
 
 .additional-image-container {
@@ -125,20 +106,15 @@
   width: 600px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  /* Optional: Add a shadow for better appearance */
 }
 
 .text-container {
   flex: 1;
-  /* Allow the text container to take up equal space */
   max-width: 500px;
-  /* Set a maximum width for the text */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* Align text to the left */
   text-align: left;
-  /* Ensure text is left-aligned */
 }
 
 .text-container h1 {
@@ -150,28 +126,8 @@
 
 .text-container p {
   margin-bottom: 10px;
-  /* Adjust spacing between paragraphs */
   font-size: 20px;
-  /* Ensure consistent font size */
   line-height: .5;
-  /* Improve readability */
-}
-
-.appointment-btn {
-  background-color: black;
-  color: rgb(255, 255, 255);
-  padding: 10px 25px;
-  border: 1px solid black;
-  cursor: pointer;
-  font-size: 16px;
-  border-radius: 20px;
-  margin-top: 20px;
-  text-decoration: none;
-}
-
-.appointment-btn:hover {
-  background-color: #A1EAEA;
-  border-color: black;
 }
 
 .services-section {
@@ -184,24 +140,16 @@
 
 .bottom-left-logo {
   position: absolute;
-  /* Position the logo relative to the services-section */
   bottom: 10px;
-  /* Position it 10px from the bottom */
   left: 10px;
-  /* Position it 10px from the left */
   width: 100px;
-  /* Set the width of the logo */
   height: auto;
-  /* Maintain aspect ratio */
   opacity: 0.8;
-  /* Optional: Slightly transparent for better aesthetics */
 }
 
 .services-container {
   max-width: 1200px;
-  /* Keep the content centered */
   margin: 0 auto;
-  /* Center the content horizontally */
   text-align: center;
 }
 
@@ -213,14 +161,11 @@
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  /* Create 3 equal columns */
   gap: 20px;
-  /* Add spacing between the cards */
 }
 
 .service-card {
   background-color: #ffffff;
-  /* White background for cards */
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 20px;
@@ -245,35 +190,26 @@
 
 .contact-section {
   background-color: #A1EAEA;
-  /* Light background for the contact section */
   padding: 40px 20px;
-  /* Adjust padding for spacing */
   text-align: left;
-  /* Align text to the left */
   width: 100%;
-  /* Ensure the section spans the full width */
   margin: 0;
 }
 
 .contact-header {
   display: flex;
   justify-content: space-between;
-  /* Place "Contact Us" and "Office Hours" on the same line */
   align-items: flex-start;
-  /* Align items to the top */
   gap: 20px;
-  /* Add spacing between the two sections */
 }
 
 .contact-us,
 .office-hours {
   flex: 1;
-  /* Allow both sections to take up equal space */
 }
 
 .office-hours {
   margin-left: 100px;
-  /* Shift the Office Hours section to the right by 100px */
 }
 
 .contact-us h2,
@@ -282,11 +218,10 @@
 .office-hours p {
   font-size: 29px;
   font-weight: bold;
-  /* Make all text bold */
   margin: 8px 0;
-  /* Add spacing between paragraphs */
   margin-left: 30px;
 }
+
 .form-input {
   width: 100%;
   max-width: 280px;
@@ -302,6 +237,7 @@
   border-color: #4bc0c8;
   box-shadow: 0 0 0 2px rgba(75, 192, 200, 0.3);
 }
+
 .faq-section {
   padding: 60px 20px;
   background-color: #f5fdfd;
@@ -328,4 +264,3 @@
 .faq-btn:hover {
   background-color: #005bb5;
 }
-
