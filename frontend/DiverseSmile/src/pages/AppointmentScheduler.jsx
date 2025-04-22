@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import '../styles/Home.css';
+import '../styles/AppointmentScheduler.css';
 import DiverseSmileLogo from '/src/assets/DiverseSmileLogo.png';
 
 const AppointmentScheduler = () => {
@@ -20,7 +20,6 @@ const AppointmentScheduler = () => {
     '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM',
   ];
 
-  // Fetch appointments on component mount
   useEffect(() => {
     fetchAppointments();
   }, []);
@@ -42,7 +41,7 @@ const AppointmentScheduler = () => {
       const data = await response.json();
       if (response.ok) {
         const formattedAppointments = data
-          .filter(appt => appt.status !== 'cancelled') 
+          .filter(appt => appt.status !== 'cancelled')
           .map(appt => ({
             ...appt,
             date: new Date(appt.date).toLocaleDateString(undefined, {
@@ -64,56 +63,36 @@ const AppointmentScheduler = () => {
     setError('');
 
     if (!selectedDate || !selectedTime) {
-      a
       setConfirmation("⚠️ Please select both a date and time.");
       setLoading(false);
       return;
     }
 
     try {
-      if (reschedulingId) {
-        // Handle rescheduling
-        const response = await fetch(`http://localhost:5000/api/appointments/${reschedulingId}/reschedule`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          },
-          body: JSON.stringify({
-            date: selectedDate.toISOString(),
-            time: selectedTime
-          })
-        });
+      const url = reschedulingId
+        ? `http://localhost:5000/api/appointments/${reschedulingId}/reschedule`
+        : `http://localhost:5000/api/appointments`;
+      const method = reschedulingId ? 'PUT' : 'POST';
 
-        const data = await response.json();
-        if (!response.ok) {
-          throw new Error(data.message || 'Failed to reschedule appointment');
-        }
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          date: selectedDate.toISOString(),
+          time: selectedTime
+        })
+      });
 
-        setConfirmation(`🔄 Appointment rescheduled to ${selectedDate.toLocaleDateString()} at ${selectedTime}`);
-      } else {
-        // Handle new appointment
-        const response = await fetch('http://localhost:5000/api/appointments', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          },
-          body: JSON.stringify({
-            date: selectedDate.toISOString(),
-            time: selectedTime
-          })
-        });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || 'Failed to submit appointment');
 
-        const data = await response.json();
-        if (!response.ok) {
-          throw new Error(data.message || 'Failed to book appointment');
-        }
+      setConfirmation(reschedulingId
+        ? `🔄 Appointment rescheduled to ${selectedDate.toLocaleDateString()} at ${selectedTime}`
+        : `✅ Appointment confirmed for ${selectedDate.toLocaleDateString()} at ${selectedTime}`);
 
-        setConfirmation(`✅ Appointment confirmed for ${selectedDate.toLocaleDateString()} at ${selectedTime}`);
-      }
-
-      // Refresh appointments and reset form
       await fetchAppointments();
       setSelectedDate(null);
       setSelectedTime('');
@@ -149,7 +128,7 @@ const AppointmentScheduler = () => {
 
       setCancelMsg(`❌ Appointment for ${date} at ${time} has been cancelled`);
       setTimeout(() => setCancelMsg(''), 3000);
-      await fetchAppointments(); // Refresh the list
+      await fetchAppointments();
     } catch (err) {
       setError(err.message);
     }
@@ -176,12 +155,10 @@ const AppointmentScheduler = () => {
         </div>
       </nav>
 
-      <div className="dashboard-container" style={{ marginTop: "140px", padding: "40px", borderRadius: "20px", backgroundColor: "#b2ebf2" }}>
-        <h1 style={{ fontSize: "32px", marginBottom: "10px" }}>📅 Schedule Your Appointment</h1>
+      <div className="appointment-container">
+        <h1>📅 Schedule Your Appointment</h1>
         {error && <div className="error-message" style={{ color: 'red', marginBottom: '20px' }}>{error}</div>}
-        <p style={{ fontSize: "18px", color: "#333", marginBottom: "30px" }}>
-          Please choose a day and time for your dental visit below.
-        </p>
+        <p>Please choose a day and time for your dental visit below.</p>
 
         <form onSubmit={handleSubmit} className="form-layout">
           <div className="input-group">
