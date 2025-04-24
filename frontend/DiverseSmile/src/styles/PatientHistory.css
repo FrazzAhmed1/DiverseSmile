@@ -1,0 +1,121 @@
+.patient-history-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9; /* Light grey background */
+  border-radius: 8px; /* Optional: Add rounded corners for a cleaner look */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Add space between the input and button */
+}
+
+.search-bar input {
+  width: 70%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+}
+
+.patient-list {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.patient-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.patient-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.patient-card p {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.patient-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.patient-card.selected {
+  border: 2px solid #007bff;
+}
+
+.patient-details {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.patient-details h2 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+.patient-details p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.patient-details h3 {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+}
+
+.patient-details ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.patient-details li {
+  font-size: 16px;
+  color: #555;
+}
