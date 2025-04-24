@@ -1,5 +1,6 @@
 import Appointment from '../models/appointmentModel.js';
 import Patient from '../models/patientModel.js';
+import Staff from '../models/staffModel.js';
 import Reminder from '../models/reminderModel.js';
 import { sendEmail } from '../config/nodemailer.js';
 import { scheduleReminder } from './reminderController.js';
@@ -23,7 +24,7 @@ export const createAppointment = async (req, res) => {
             patientId,
             date,
             time,
-            status: 'scheduled'
+            status: 'pending'
         });
 
         // Get patient details for email
@@ -174,6 +175,158 @@ export const cancelAppointment = async (req, res) => {
         await Reminder.deleteMany({ appointmentId: appointment._id });
 
         res.status(200).json({ message: 'Appointment cancelled successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+// @desc    Get all pending appointments (for staff dashboard)
+// @route   GET /api/appointments/pending
+// @access  Private/Staff
+export const getPendingAppointments = async (req, res) => {
+    try {
+        const appointments = await Appointment.find({ status: 'pending' })
+            .populate('patientId', 'firstName lastName')
+            .sort({ date: 1, time: 1 });
+        res.status(200).json(appointments);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Get staff's confirmed appointments
+// @route   GET /api/appointments/staff
+// @access  Private/Staff
+export const getStaffAppointments = async (req, res) => {
+    try {
+        const appointments = await Appointment.find({
+            assignedStaffId: req.user._id,
+            status: { $in: ['confirmed', 'completed'] }
+        })
+            .populate('patientId', 'firstName lastName')
+            .sort({ date: 1, time: 1 });
+
+        res.status(200).json(appointments);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Staff confirms an appointment
+// @route   PUT /api/appointments/:id/confirm
+// @access  Private/Staff
+export const confirmAppointment = async (req, res) => {
+    try {
+        const appointment = await Appointment.findById(req.params.id);
+
+        if (!appointment) {
+            return res.status(404).json({ message: 'Appointment not found' });
+        }
+
+        if (appointment.status !== 'pending') {
+            return res.status(400).json({ message: 'Appointment is not pending confirmation' });
+        }
+
+        const updatedAppointment = await Appointment.findByIdAndUpdate(
+            req.params.id,
+            {
+                status: 'confirmed',
+                assignedStaffId: req.user._id
+            },
+            { new: true }
+        ).populate('patientId', 'firstName lastName email');
+
+        // Notify patient about staff confirmation
+        const formattedDate = new Date(updatedAppointment.date).toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        await sendEmail({
+            to: updatedAppointment.patientId.email,
+            subject: 'Appointment Confirmed - DiverseSmile',
+            html: `
+                <h1>Your Appointment Has Been Confirmed</h1>
+                <p>Dear ${updatedAppointment.patientId.firstName},</p>
+                <p>Your dental appointment has been confirmed for:</p>
+                <h2>${formattedDate} at ${updatedAppointment.time}</h2>
+                <p>Your assigned dental professional will be in touch if needed.</p>
+                <p>Best regards,<br/>The DiverseSmile Team</p>
+            `
+        });
+
+        res.status(200).json(updatedAppointment);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Staff marks appointment as complete
+// @route   PUT /api/appointments/:id/complete
+// @access  Private/Staff
+export const completeAppointment = async (req, res) => {
+    try {
+        const appointment = await Appointment.findOneAndUpdate(
+            {
+                _id: req.params.id,
+                assignedStaffId: req.user._id
+            },
+            { status: 'completed' },
+            { new: true }
+        );
+
+        if (!appointment) {
+            return res.status(404).json({ message: 'Appointment not found or not assigned to you' });
+        }
+
+        res.status(200).json(appointment);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Staff cancels an appointment
+// @route   PUT /api/appointments/:id/staff-cancel
+// @access  Private/Staff
+export const staffCancelAppointment = async (req, res) => {
+    try {
+        const appointment = await Appointment.findOneAndUpdate(
+            {
+                _id: req.params.id,
+                assignedStaffId: req.user._id
+            },
+            { status: 'cancelled' },
+            { new: true }
+        ).populate('patientId', 'firstName lastName email');
+
+        if (!appointment) {
+            return res.status(404).json({ message: 'Appointment not found or not assigned to you' });
+        }
+
+        // Notify patient about cancellation
+        const formattedDate = new Date(appointment.date).toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        await sendEmail({
+            to: appointment.patientId.email,
+            subject: 'Appointment Cancelled - DiverseSmile',
+            html: `
+                <h1>Your Appointment Has Been Cancelled</h1>
+                <p>Dear ${appointment.patientId.firstName},</p>
+                <p>We regret to inform you that your dental appointment scheduled for:</p>
+                <h2>${formattedDate} at ${appointment.time}</h2>
+                <p>has been cancelled by our staff.</p>
+                <p>Please contact us to reschedule or for more information.</p>
+                <p>Best regards,<br/>The DiverseSmile Team</p>
+            `
+        });
+
+        res.status(200).json(appointment);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
