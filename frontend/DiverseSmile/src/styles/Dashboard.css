@@ -1,27 +1,26 @@
-/*content for entire cover page*/
+/* Base styling */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
     background: #f5fdfd;
     color: #333;
-}
-
-
-.dashboard-page-wrapper {
+  }
+  
+  .dashboard-page-wrapper {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-}
-
-.staff-dashboard-wrapper, .dashboard-page {
+  }
+  
+  .staff-dashboard-wrapper, .dashboard-page {
     display: flex;
     min-height: 80vh;
     background: linear-gradient(to right, #f5fdfd 250px, #ffffff 250px);
-}
-
-/*css for the sidebar of pages*/
-.sidebar {
+  }
+  
+  /* Sidebar */
+  .sidebar {
     width: 250px;
     background: #a1eaea;
     color: #2a5e5e;
@@ -30,12 +29,12 @@ body {
     position: fixed;
     height: 100vh;
     box-sizing: border-box;
-    top:0;
-    left:0;
-    margin:0;
-}
-
-.sidebar h2 {
+    top: 0;
+    left: 0;
+    margin: 0;
+  }
+  
+  .sidebar h2 {
     font-size: 24px;
     margin-bottom: 25px;
     font-weight: bold;
@@ -43,21 +42,22 @@ body {
     text-transform: uppercase;
     letter-spacing: 1.5px;
     color: #ffffff;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-}
-
-.sidebar ul {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  .sidebar ul {
     list-style: none;
     padding: 0;
     width: 100%;
-}
-
-.sidebar ul li {
+  }
+  
+  .sidebar ul li {
     margin: 15px 0;
     width: 100%;
-}
-
-.sidebar button, .sidebar a {
+  }
+  
+  .sidebar button,
+  .sidebar a {
     color: #2a5e5e;
     text-decoration: none;
     font-size: 18px;
@@ -66,65 +66,69 @@ body {
     border-radius: 8px;
     text-align: center;
     transition: all 0.3s ease;
-    background: rgba(255,255,255,0.8);
-    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
     width: 100%;
     cursor: pointer;
-    border: none;
-}
-
-.sidebar button:hover, .sidebar a:hover {
+  }
+  
+  .sidebar button:hover,
+  .sidebar a:hover {
     background-color: #ffffff;
     color: #007bff;
     transform: scale(1.05);
     box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
-}
-
-.sidebar .active-tab {
+  }
+  
+  .sidebar .active-tab {
     background-color: #ffffff;
     color: #007bff;
     font-weight: bold;
-}
-
-
-.dashboard-content, .dashboard-main {
+  }
+  
+  /* Main Content */
+  .dashboard-content,
+  .dashboard-main {
     flex: 1;
     margin-left: 250px;
     padding: 40px;
     background: #ffffff;
     min-height: 100vh;
     box-sizing: border-box;
-}
-
-.dashboard-header {
+  }
+  
+  .dashboard-header {
     text-align: center;
     margin-bottom: 30px;
     padding: 20px;
     background: #f5fdfd;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(161, 234, 234, 0.3);
-}
-
-.dashboard-header h1, .dashboard-header h2 {
+  }
+  
+  .dashboard-header h1,
+  .dashboard-header h2 {
     font-size: 36px;
     color: #2a5e5e;
     margin-bottom: 10px;
     font-weight: bold;
-}
-
-.dashboard-header p {
+  }
+  
+  .dashboard-header p {
     font-size: 18px;
     color: #5a8a8a;
-}
-
-
-.dashboard-sections {
+  }
+  
+  /* Cards & Sections */
+  .dashboard-sections {
     display: flex;
     gap: 20px;
     margin-top: 20px;
-}
-
-.appointments, .payments, .dashboard-tips {
+  }
+  
+  .appointments,
+  .payments,
+  .dashboard-tips {
     flex: 1;
     background: #f5fdfd;
     padding: 25px;
@@ -133,23 +137,29 @@ body {
     width: 100%;
     text-align: left;
     border: 1px solid #d1f0f0;
-}
-
-.appointments h2, .payments h2, .payments-title {
+  }
+  
+  .appointments h2,
+  .payments h2,
+  .payments-title {
     font-size: 24px;
     color: #2a5e5e;
     margin-bottom: 15px;
     border-bottom: 2px solid #a1eaea;
     padding-bottom: 5px;
-}
-
-.appointments ul, .payments ul, .payments-list {
+  }
+  
+  .appointments ul,
+  .payments ul,
+  .payments-list {
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-.appointments ul li, .payments ul li, .payments-list li {
+  }
+  
+  .appointments ul li,
+  .payments ul li,
+  .payments-list li {
     font-size: 16px;
     color: #333;
     margin-bottom: 10px;
@@ -160,53 +170,117 @@ body {
     transition: all 0.3s ease;
     background: #ffffff;
     border: 1px solid #e0f7f7;
-}
-
-.appointments ul li:hover, .payments ul li:hover, .payments-list li:hover {
+  }
+  
+  .appointments ul li:hover,
+  .payments ul li:hover,
+  .payments-list li:hover {
     background: #a1eaea;
     color: #ffffff;
     transform: translateX(5px);
-}
-/*design*/
-@media (max-width: 768px) {
-    .staff-dashboard-wrapper, .dashboard-page {
-        flex-direction: column;
-        background: #f5fdfd;
+  }
+  
+  /* Submission logs */
+  .submitted-data {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .submission-entry {
+    margin-bottom: 15px;
+    padding: 12px;
+    background-color: #e9f7ef;
+    border: 1px solid #d4edda;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  .submission-entry p {
+    margin: 6px 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #155724;
+  }
+  
+  /* Total hours summary */
+  .total-hours-summary {
+    background-color: #fff9e6;
+    border: 1px solid #ffe58f;
+    padding: 12px 18px;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #8c6d1f;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(255, 229, 143, 0.2);
+  }
+  
+  /* Button */
+  .go-to-login-hours {
+    margin-top: 20px;
+    background-color: #a1eaea;
+    color: #2a5e5e;
+    font-weight: bold;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .go-to-login-hours:hover {
+    background-color: #89d3d3;
+    color: #ffffff;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .staff-dashboard-wrapper,
+    .dashboard-page {
+      flex-direction: column;
+      background: #f5fdfd;
     }
-
+  
     .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-        padding: 20px;
+      width: 100%;
+      height: auto;
+      position: relative;
+      padding: 20px;
     }
-
-    .dashboard-content, .dashboard-main {
-        margin-left: 0;
-        padding: 20px;
+  
+    .dashboard-content,
+    .dashboard-main {
+      margin-left: 0;
+      padding: 20px;
     }
-
-    .dashboard-header h1, .dashboard-header h2 {
-        font-size: 28px;
+  
+    .dashboard-header h1,
+    .dashboard-header h2 {
+      font-size: 28px;
     }
-
+  
     .dashboard-sections {
-        flex-direction: column;
+      flex-direction: column;
     }
+  
     .user-name {
-        text-align: center;
-        margin-bottom: 20px;
-        font-weight: bold;
-        color: #2a5e5e;
-      }
-      
-      .dashboard-list {
-        list-style: none;
-        padding: 0;
-      }
-      
-      .dashboard-list li {
-        padding: 8px 0;
-        border-bottom: 1px solid #e0f7f7;
-      }
-}
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #2a5e5e;
+    }
+  
+    .dashboard-list {
+      list-style: none;
+      padding: 0;
+    }
+  
+    .dashboard-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid #e0f7f7;
+    }
+  }
+  
