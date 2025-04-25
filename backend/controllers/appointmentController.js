@@ -4,6 +4,7 @@ import Staff from '../models/staffModel.js';
 import Reminder from '../models/reminderModel.js';
 import { sendEmail } from '../config/nodemailer.js';
 import { scheduleReminder } from './reminderController.js';
+import { updateStaffPerformance } from './performanceController.js';
 
 // @desc    Create new appointment
 // @route   POST /api/appointments
@@ -200,7 +201,7 @@ export const getStaffAppointments = async (req, res) => {
     try {
         const appointments = await Appointment.find({
             assignedStaffId: req.user._id,
-            status: { $in: ['confirmed', 'completed'] }
+            status: { $in: ['confirmed'] }
         })
             .populate('patientId', 'firstName lastName')
             .sort({ date: 1, time: 1 });
@@ -256,6 +257,8 @@ export const confirmAppointment = async (req, res) => {
             `
         });
 
+        await updateStaffPerformance(req.user._id, 'confirmed');
+
         res.status(200).json(updatedAppointment);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -279,6 +282,8 @@ export const completeAppointment = async (req, res) => {
         if (!appointment) {
             return res.status(404).json({ message: 'Appointment not found or not assigned to you' });
         }
+
+        await updateStaffPerformance(appointment.assignedStaffId, 'completed');
 
         res.status(200).json(appointment);
     } catch (error) {
@@ -325,6 +330,8 @@ export const staffCancelAppointment = async (req, res) => {
                 <p>Best regards,<br/>The DiverseSmile Team</p>
             `
         });
+
+        await updateStaffPerformance(appointment.assignedStaffId, 'cancelled');
 
         res.status(200).json(appointment);
     } catch (error) {

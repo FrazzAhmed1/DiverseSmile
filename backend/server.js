@@ -9,7 +9,8 @@ import adminRoutes from "./routes/adminRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import appointmentRoutes from "./routes/appointmentRoutes.js";
 import reminderRoutes from "./routes/reminderRoutes.js";
-import loginLogRoutes from "./routes/loginLogRoutes.js"; //testing the log hours
+import loginLogRoutes from "./routes/loginLogRoutes.js"; 
+import performanceRoutes from './routes/performanceRoutes.js';
 import cors from "cors";
 
 const app = express();
@@ -29,6 +30,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/appointments", appointmentRoutes);
 app.use("/api/reminders", reminderRoutes);
 app.use("/api/login-logs", loginLogRoutes); 
+app.use('/api/performance', performanceRoutes);
+
 
 // Start server
 const PORT = process.env.PORT || 5000;
