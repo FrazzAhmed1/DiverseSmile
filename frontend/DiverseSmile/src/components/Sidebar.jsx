@@ -9,7 +9,7 @@ const Sidebar = () => {
             <ul className="sidebar-links">
                 <li><Link to="/schedule">📅 Appointments</Link></li>
                 <li><Link to="/payments">💳 Payments</Link></li>
-                <li><Link to="/profile">👤 Profile</Link></li>
+                <li><Link to="/patient-profile">👤 Profile</Link></li>
                 <li><Link to="/logout">🚪 Logout</Link></li>
             </ul>
         </div>

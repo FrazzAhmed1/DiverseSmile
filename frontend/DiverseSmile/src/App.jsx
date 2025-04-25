@@ -19,6 +19,7 @@ import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
 import LoginHours from "./pages/LoginHours"; 
 import PatientHistory from "./pages/PatientHistory";
+import PatientProfile from "./pages/PatientProfile";
 import "./styles/Footer.css";
 
 const App = () => {
@@ -48,6 +49,7 @@ const App = () => {
             <Route path="/staff-login" element={<StaffLogin />} />
             <Route path="/login-hours" element={<LoginHours />} /> 
             <Route path="/patient-history" element={<PatientHistory />} /> 
+            <Route path="/patient-profile" element={<PatientProfile />} /> 
             <Route path="questions" element={<Faq />} />
           </Routes>
         </main>
