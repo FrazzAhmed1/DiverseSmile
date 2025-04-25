@@ -53,9 +53,6 @@ const AdminDashboard = () => {
                     <button className={`nav-item ${activeTab === "performance" ? "active" : ""}`} onClick={() => setActiveTab("performance")}>
                         Staff Performance
                     </button>
-                    <button className={`nav-item ${activeTab === "hours" ? "active" : ""}`} onClick={() => setActiveTab("hours")}>
-                        Attendance
-                    </button>
                     <button className={`nav-item ${activeTab === "kpi" ? "active" : ""}`} onClick={() => setActiveTab("kpi")}>
                         KPIs
                     </button>
@@ -97,18 +94,6 @@ const AdminDashboard = () => {
                         </div>
                         <div className="chart-section">
                             <PerformanceChart attended={85} cancelled={15} />
-                        </div>
-                    </div>
-                )}
-
-                {activeTab === "hours" && (
-                    <div className="attendance-screen">
-                        <h1>Attendance Overview</h1>
-                        <div className="attendance-card">
-                            <div className="hours-display">
-                                <span>38.5</span>
-                                <p>Average Weekly Hours</p>
-                            </div>
                         </div>
                     </div>
                 )}
