@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../styles/PatientHistory.css";
-import Goat from "/src/assets/LebronJames.jpeg";
-import Trallalero from "/src/assets/shark.jpeg";
+
 
 const PatientHistory = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,7 +14,6 @@ const PatientHistory = () => {
       address: "123 Main St, Springfield",
       gender: "Male",
       age: 35,
-      image: Goat,
       appointments: ["2023-01-15", "2023-02-20", "2023-03-10"],
     },
     {
@@ -24,7 +22,6 @@ const PatientHistory = () => {
       address: "456 Elm St, Springfield",
       gender: "Female",
       age: 28,
-      image: Trallalero,
       appointments: ["2023-01-10", "2023-02-25", "2023-03-15"],
     },
   ];

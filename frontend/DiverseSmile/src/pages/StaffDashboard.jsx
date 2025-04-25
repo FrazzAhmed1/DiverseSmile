@@ -85,7 +85,7 @@ const StaffDashboard = () => {
 
   const calculateTotalDuration = () => {
     const total = logs.reduce((acc, log) => {
-      const [h, m, s] = log.duration.split(":" ).map(Number);
+      const [h, m, s] = log.duration.split(":").map(Number);
       return acc + h * 3600 + m * 60 + s;
     }, 0);
 
@@ -181,7 +181,9 @@ const StaffDashboard = () => {
         return (
           <div className="dashboard-tips">
             <h2>Patient History</h2>
-            <p>🧾 Patient history section.</p>
+            <Link to="/patient-history">
+              <button className="go-to-login-hours">Patient's History Page</button>
+            </Link>
           </div>
         );
       default:

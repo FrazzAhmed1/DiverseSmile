@@ -17,7 +17,8 @@ import Reminder from "./pages/Reminder";
 import Faq from "./pages/Faq";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
-import LoginHours from "./pages/LoginHours"; //testing
+import LoginHours from "./pages/LoginHours"; 
+import PatientHistory from "./pages/PatientHistory";
 import "./styles/Footer.css";
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
             <Route path="/patient-login" element={<PatientLogin />} />
             <Route path="/staff-login" element={<StaffLogin />} />
             <Route path="/login-hours" element={<LoginHours />} /> 
+            <Route path="/patient-history" element={<PatientHistory />} /> 
             <Route path="questions" element={<Faq />} />
           </Routes>
         </main>
