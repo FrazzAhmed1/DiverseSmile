@@ -6,15 +6,17 @@ import Appointment from '../models/appointmentModel.js';
 // @route   (This will be called internally, not via API)
 export const updateStaffPerformance = async (staffId, action) => {
   try {
+    console.log("✅ updateStaffPerformance CALLED for:", staffId, "Action:", action);
+
     // Find or create performance record
     let performance = await StaffPerformance.findOne({ staffId });
-    
+
     if (!performance) {
       performance = await StaffPerformance.create({ staffId });
     }
 
     // Update based on action
-    switch(action) {
+    switch (action) {
       case 'confirmed':
         performance.totalAppointmentsConfirmed += 1;
         break;
@@ -58,7 +60,9 @@ export const getAllStaffPerformance = async (req, res) => {
   try {
     const performances = await StaffPerformance.find()
       .populate('staffId', 'firstName lastName email')
-      .sort({ 'completionRate': -1 }); // Sort by completion rate descending
+      .sort({ completionRate: -1 });
+
+    console.log("🔍 Populated performances:", JSON.stringify(performances, null, 2));
 
     res.status(200).json(performances);
   } catch (error) {

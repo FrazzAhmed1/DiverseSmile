@@ -1,22 +1,22 @@
 import jwt from 'jsonwebtoken';
 import Patient from '../models/patientModel.js';
 import Staff from '../models/staffModel.js';
+import Admin from '../models/adminModel.js'; // ✅ Import your Admin model
 
 // Protect routes - verify JWT
 export const protect = async (req, res, next) => {
   let token;
 
-  // Get token from header
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     try {
-      // Get token from header
       token = req.headers.authorization.split(' ')[1];
-
-      // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      // Get user from the token (check both patient and staff)
-      req.user = await Patient.findById(decoded.id) || await Staff.findById(decoded.id);
+      // ✅ Check Admin, then Staff, then Patient
+      req.user =
+        (await Admin.findById(decoded.id)) ||
+        (await Staff.findById(decoded.id)) ||
+        (await Patient.findById(decoded.id));
 
       if (!req.user) {
         return res.status(401).json({ message: 'Not authorized, user not found' });
@@ -25,12 +25,12 @@ export const protect = async (req, res, next) => {
       next();
     } catch (error) {
       console.error('Token verification error:', error);
-      res.status(401).json({ message: 'Not authorized, token failed' });
+      return res.status(401).json({ message: 'Not authorized, token failed' });
     }
   }
 
   if (!token) {
-    res.status(401).json({ message: 'Not authorized, no token' });
+    return res.status(401).json({ message: 'Not authorized, no token' });
   }
 };
 
