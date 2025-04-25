@@ -28,7 +28,7 @@ const PatientProfile = () => {
                     return;
                 }
 
-                const response = await fetch('http://localhost:5000/api/patients/profile', {
+                const response = await fetch('http://localhost:3300/api/patients/profile', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -79,7 +79,7 @@ const PatientProfile = () => {
                 return;
             }
 
-            const response = await fetch('http://localhost:5000/api/patients/profile', {
+            const response = await fetch('http://localhost:3300/api/patients/profile', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

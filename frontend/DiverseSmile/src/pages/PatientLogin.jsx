@@ -18,7 +18,7 @@ const PatientLogin = () => {
 
         try {
             const response = await fetch(
-                "http://localhost:5000/api/patient-auth/login",
+                "http://localhost:3300/api/patient-auth/login",
                 {
                     method: "POST",
                     headers: {

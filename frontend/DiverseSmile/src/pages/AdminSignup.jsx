@@ -8,7 +8,7 @@ const AdminSignup = () => {
 
     const handleSignup = async (formData) => {
         try {
-            const response = await fetch("http://localhost:5000/api/admin/register", {
+            const response = await fetch("http://localhost:3300/api/admin/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),

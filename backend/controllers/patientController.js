@@ -127,3 +127,11 @@ export const getPatientById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// @desc    Logout patient
+// @route   POST /api/patients/logout
+// @access  Private
+export const logoutPatient = (req, res) => {
+  // Clear any session or token-related logic if applicable
+  res.status(200).json({ message: "Patient logged out successfully" });
+};

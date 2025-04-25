@@ -33,7 +33,7 @@ const AppointmentScheduler = () => {
 
   const fetchAppointments = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/appointments/patient', {
+      const response = await fetch('http://localhost:3300/api/appointments/patient', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -70,8 +70,8 @@ const AppointmentScheduler = () => {
 
     try {
       const url = reschedulingId
-        ? `http://localhost:5000/api/appointments/${reschedulingId}/reschedule`
-        : `http://localhost:5000/api/appointments`;
+        ? `http://localhost:3300/api/appointments/${reschedulingId}/reschedule`
+        : `http://localhost:3300/api/appointments`;
       const method = reschedulingId ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
@@ -114,7 +114,7 @@ const AppointmentScheduler = () => {
 
   const handleDelete = async (id, date, time) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/appointments/${id}/cancel`, {
+      const response = await fetch(`http://localhost:3300/api/appointments/${id}/cancel`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
