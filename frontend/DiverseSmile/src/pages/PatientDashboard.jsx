@@ -12,7 +12,7 @@ const PatientDashboard = () => {
     const handleLogout = async () => {
         try {
             console.log("Attempting to log out...");
-            const response = await axios.post("http://localhost:3300/api/patients/logout");
+            const response = await axios.post("http://localhost:5000/api/patients/logout");
 
             if (response.status === 200) {
                 console.log("Logout successful");
