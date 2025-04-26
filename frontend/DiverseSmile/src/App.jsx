@@ -17,7 +17,8 @@ import Reminder from "./pages/Reminder";
 import Faq from "./pages/Faq";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
-import LoginHours from "./pages/LoginHours"; 
+import LoginHours from "./pages/LoginHours";
+import ManuallyAddHours from "./pages/ManuallyAddHours";  // ← Import added
 import PatientHistory from "./pages/PatientHistory";
 import PatientProfile from "./pages/PatientProfile";
 import PaymentSelection from "./pages/PaymentSelections";
@@ -47,16 +48,19 @@ const App = () => {
             <Route path="/schedule" element={<AppointmentScheduler />} />
             <Route path="/schedule-reminder" element={<Reminder />} />
             <Route path="/faq" element={<Faq />} />
-            <Route path="*" element={<NotFound />} />
-            <Route path="/patient-login" element={<PatientLogin />} />
-            <Route path="/staff-login" element={<StaffLogin />} />
-            <Route path="/login-hours" element={<LoginHours />} /> 
-            <Route path="/patient-history" element={<PatientHistory />} /> 
-            <Route path="/patient-profile" element={<PatientProfile />} /> 
-            <Route path="questions" element={<Faq />} />
+
+            {/* Clock In/Out and Manual Entry */}
+            <Route path="/login-hours" element={<LoginHours />} />
+            <Route path="/manual-log-hours" element={<ManuallyAddHours />} />
+
+            <Route path="/patient-history" element={<PatientHistory />} />
+            <Route path="/patient-profile" element={<PatientProfile />} />
             <Route path="/payments" element={<PaymentSelection />} />
             <Route path="/payment-process" element={<PaymentProcess />} />
             <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
+
+            {/* Fallback */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
