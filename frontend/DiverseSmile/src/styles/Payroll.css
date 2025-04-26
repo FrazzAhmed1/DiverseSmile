@@ -1,0 +1,99 @@
+/* src/styles/Payroll.css */
+
+/* Container */
+.payroll-container {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Heading */
+  .payroll-container h2 {
+    margin-bottom: 16px;
+    color: #2a5e5e;
+    text-align: center;
+  }
+  
+  /* Layout: two columns, no wrap */
+  .payroll-flex {
+    display: flex;
+    gap: 40px;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+  }
+  
+  /* Left column: individual pay period */
+  .pay-period {
+    flex: 1 1 300px;
+  }
+  
+  /* Dropdown */
+  .period-select {
+    width: 100%;
+    max-width: 350px;
+    padding: 8px 12px;
+    font-size: 16px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  /* Hours worked and wage */
+  .hours-worked {
+    font-size: 18px;
+    margin: 12px 0 8px;
+    color: #2a5e5e;
+  }
+  
+  .hourly-wage {
+    font-size: 16px;
+    margin: 0 0 16px;
+    color: #2a5e5e;
+  }
+  
+  /* Chart wrapper */
+  .chart-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .chart-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+    color: #2a5e5e;
+  }
+  
+  .chart-amount {
+    margin-top: 4px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #28a745;
+  }
+  
+  /* Right column: year-to-date summary */
+  .yearly-section {
+    flex: 1 1 300px;
+    background: #f9fdfd;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #d1f0f0;
+  }
+  
+  .yearly-section h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #2a5e5e;
+    text-align: center;
+  }
+  
+  .yearly-section p {
+    margin: 6px 0;
+    font-size: 16px;
+    color: #2a5e5e;
+  }
+  
