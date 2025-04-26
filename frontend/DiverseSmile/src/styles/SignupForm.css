@@ -1,83 +1,95 @@
-/* General Style */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
 }
 
 .go-back-button {
   position: absolute;
   top: 20px;
   left: 20px;
+  background: linear-gradient(135deg, #00bcd4, #2196f3);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 40px;
+  cursor: pointer;
   text-decoration: none;
-  color: black;
-  padding: 4px 10px;
-  border: 1px solid black;
-  border-radius: 4px;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
+
 .go-back-button:hover {
-  background-color: cyan;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  opacity: 0.95;
 }
+
 .signup-page {
   background-color: #A1EAEA;
-  min-height: 100vh; 
-  width: 100%; 
-  padding: 20px; 
-  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 .signup-container {
-  background: #A1EAEA;
+  background: #ffffff;
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 12px;
   width: 100%;
-  max-width: 400px;
-  margin: auto;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  max-width: 480px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   color: #333;
+  font-size: 22px;
+  font-weight: 600;
 }
 
 .signup-form {
-  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
 }
 
 .auth-submit-btn {
   width: 100%;
   padding: 12px;
-  background-color: #007bff;
+  background: linear-gradient(135deg, #007bff, #0056b3);
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-  padding-top:10px;
+  transition: all 0.3s ease;
 }
 
 .auth-submit-btn:hover {
-  background-color: #0056b3;
+  opacity: 0.95;
+  transform: translateY(-1px);
 }
 
-/* Switch Role Link */
 .switch-role-text {
   text-align: center;
   margin-top: 1rem;
-  margin-bottom: 0.5rem;
+  font-size: 14px;
   color: #333;
 }
 
@@ -91,10 +103,10 @@ input {
   text-decoration: underline;
 }
 
-/* Message Styling */
 .message {
   text-align: center;
   margin-top: 1rem;
-  color: #8B0000;
-  font-weight: bold;
+  color: #d32f2f;
+  font-weight: 600;
+  font-size: 14px;
 }
