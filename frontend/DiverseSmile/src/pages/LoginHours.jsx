@@ -29,7 +29,7 @@ const LoginHours = () => {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const res = await axios.get('http://localhost:3300/api/login-logs', {
+        const res = await axios.get('http://localhost:5000/api/login-logs', {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (Array.isArray(res.data)) {
@@ -62,7 +62,7 @@ const LoginHours = () => {
 
     try {
       const res = await axios.post(
-        'http://localhost:3300/api/login-logs',
+        'http://localhost:5000/api/login-logs',
         { date, duration: totalDuration },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -77,7 +77,7 @@ const LoginHours = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3300/api/login-logs/${id}`, {
+      await axios.delete(`http://localhost:5000/api/login-logs/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setLogs(logs.filter(log => log._id !== id));
