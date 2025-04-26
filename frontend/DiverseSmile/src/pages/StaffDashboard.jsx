@@ -17,17 +17,17 @@ const StaffDashboard = () => {
     const fetchData = async () => {
       try {
         if (activeTab === "logHours") {
-          const res = await axios.get("http://localhost:3300/api/login-logs", {
+          const res = await axios.get("http://localhost:5000/api/login-logs", {
             headers: { Authorization: `Bearer ${token}` },
           });
           setLogs(res.data);
         } else if (activeTab === "pendingAppointments") {
-          const res = await axios.get("http://localhost:3300/api/appointments/pending", {
+          const res = await axios.get("http://localhost:5000/api/appointments/pending", {
             headers: { Authorization: `Bearer ${token}` },
           });
           setPendingAppointments(res.data);
         } else if (activeTab === "schedule") {
-          const res = await axios.get("http://localhost:3300/api/appointments/staff", {
+          const res = await axios.get("http://localhost:5000/api/appointments/staff", {
             headers: { Authorization: `Bearer ${token}` },
           });
           setMyAppointments(res.data);
@@ -41,7 +41,7 @@ const StaffDashboard = () => {
 
   const deleteLog = async (id) => {
     try {
-      await axios.delete(`http://localhost:3300/api/login-logs/${id}`, {
+      await axios.delete(`http://localhost:5000/api/login-logs/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setLogs((prev) => prev.filter((log) => log._id !== id));
@@ -52,7 +52,7 @@ const StaffDashboard = () => {
 
   const confirmAppointment = async (id) => {
     try {
-      await axios.put(`http://localhost:3300/api/appointments/${id}/confirm`, {}, {
+      await axios.put(`http://localhost:5000/api/appointments/${id}/confirm`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPendingAppointments(pendingAppointments.filter((app) => app._id !== id));
@@ -63,7 +63,7 @@ const StaffDashboard = () => {
 
   const completeAppointment = async (id) => {
     try {
-      await axios.put(`http://localhost:3300/api/appointments/${id}/complete`, {}, {
+      await axios.put(`http://localhost:5000/api/appointments/${id}/complete`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMyAppointments(myAppointments.filter((app) => app._id !== id));
@@ -74,7 +74,7 @@ const StaffDashboard = () => {
 
   const cancelClaimedAppointment = async (id) => {
     try {
-      await axios.put(`http://localhost:3300/api/appointments/${id}/staff-cancel`, {}, {
+      await axios.put(`http://localhost:5000/api/appointments/${id}/staff-cancel`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMyAppointments(myAppointments.filter((app) => app._id !== id));
