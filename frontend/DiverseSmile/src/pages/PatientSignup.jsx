@@ -6,7 +6,7 @@ const PatientSignup = () => {
 
   const handleSubmit = async (formData) => {
     try {
-      const response = await fetch("http://localhost:3300/api/patients/register", {
+      const response = await fetch("http://localhost:5000/api/patients/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
