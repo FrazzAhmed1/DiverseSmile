@@ -20,9 +20,8 @@ const Reminder = () => {
     }
 
     try {
-      // In a real app, you would get the upcoming appointment ID
-      // For demo, we'll use the first upcoming appointment
-      const response = await fetch('http://localhost:3300/api/appointments/patient', {
+      
+      const response = await fetch('http://localhost:5000/api/appointments/patient', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -36,7 +35,7 @@ const Reminder = () => {
       }
 
       // Set the reminder
-      const reminderResponse = await fetch('http://localhost:3300/api/reminders', {
+      const reminderResponse = await fetch('http://localhost:5000/api/reminders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
