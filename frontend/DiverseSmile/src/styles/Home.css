@@ -34,7 +34,8 @@
 }
 
 .nav-buttons button,
-.nav-btn {
+.nav-btn,
+.appointment-btn {
   background: linear-gradient(135deg, #00bcd4, #2196f3);
   color: white;
   border: none;
@@ -47,18 +48,17 @@
   text-decoration: none;
   transition: 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 
 .nav-buttons button:hover,
-.nav-btn:hover {
+.nav-btn:hover,
+.appointment-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
   opacity: 0.95;
 }
 
-
-
-/* Main content styling */
 .home-container {
   display: flex;
   flex-direction: column;
@@ -248,15 +248,21 @@
 .faq-btn {
   margin-top: 20px;
   display: inline-block;
-  background-color: #007bff;
+  background: linear-gradient(135deg, #00bcd4, #2196f3);
   color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 40px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
   text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s ease;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .faq-btn:hover {
-  background-color: #005bb5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  opacity: 0.95;
 }
