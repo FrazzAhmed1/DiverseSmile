@@ -16,7 +16,7 @@ const AdminDashboard = () => {
       console.log("Admin token:", token);
 
       axios
-        .get("http://localhost:3300/api/performance", {
+        .get("http://localhost:5000/api/performance", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
