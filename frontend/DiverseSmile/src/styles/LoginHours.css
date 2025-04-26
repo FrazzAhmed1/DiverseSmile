@@ -1,3 +1,6 @@
+/* src/styles/LoginHours.css */
+
+/* Container */
 .login-hours-container {
   max-width: 700px;
   margin: 40px auto;
@@ -7,6 +10,7 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
 }
 
+/* Title */
 .page-title {
   text-align: center;
   margin-bottom: 25px;
@@ -15,6 +19,7 @@
   font-weight: bold;
 }
 
+/* Live timer */
 .live-timer {
   text-align: center;
   font-size: 20px;
@@ -23,6 +28,7 @@
   font-weight: 600;
 }
 
+/* Clock in/out buttons */
 .login-hours-form {
   display: flex;
   justify-content: center;
@@ -39,7 +45,7 @@
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease;
 }
 
 .clock-in-button {
@@ -58,6 +64,7 @@
   background-color: #218838;
 }
 
+/* Back link */
 .back-link {
   display: inline-block;
   margin-bottom: 15px;
@@ -71,6 +78,29 @@
   text-decoration: underline;
 }
 
+/* Manual Add Hours button */
+.manual-add-hours-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.manual-add-hours-btn {
+  background-color: #ffc107;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.manual-add-hours-btn:hover {
+  background-color: #e0a800;
+}
+
+/* Logs container */
 .submitted-data {
   background-color: #ffffff;
   padding: 20px;
@@ -87,6 +117,7 @@
   padding-bottom: 5px;
 }
 
+/* Individual entry */
 .submission-entry {
   margin-bottom: 20px;
   padding: 12px;
@@ -103,6 +134,12 @@
   line-height: 1.5;
 }
 
+/* Highlight manually‐added entries */
+.submission-entry.manual-entry {
+  border: 2px dashed #ffc107;
+}
+
+/* Delete button */
 .delete-log-button {
   background-color: #dc3545;
   color: white;
@@ -117,4 +154,16 @@
 
 .delete-log-button:hover {
   background-color: #bd2130;
+}
+
+/* Badge for manual entries */
+.manual-label {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #ffc107;
+  border-radius: 4px;
 }
