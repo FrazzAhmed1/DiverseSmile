@@ -18,7 +18,7 @@ const StaffLogin = () => {
 
         try {
             const response = await fetch(
-                "http://localhost:3300/api/staff-auth/login",
+                "http://localhost:5000/api/staff-auth/login",
                 {
                     method: "POST",
                     headers: {
