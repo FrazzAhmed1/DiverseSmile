@@ -8,7 +8,6 @@ import {
   logoutPatient
 } from "../controllers/patientController.js";
 import { protect, authorizeRoles } from "../middleware/authMiddleware.js";
-import { logoutPatient } from "../controllers/patientController.js";
 
 const router = express.Router();
 
