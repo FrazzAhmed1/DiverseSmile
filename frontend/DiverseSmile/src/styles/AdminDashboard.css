@@ -125,7 +125,6 @@
 .main-content-area {
     flex: 1;
     padding: 40px;
-    margin-left: 360px;
     min-height: 100vh;
 }
 
@@ -306,3 +305,85 @@
     padding: 20px;
   }
   
+
+  /* Add these styles to your existing AdminDashboard.css */
+
+/* Payments Screen */
+.payments-screen {
+    padding: 20px;
+  }
+  
+  .payment-table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+  }
+  
+  .payment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .payment-table th, .payment-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .payment-table th {
+    background-color: #2a5e5e;
+    color: white;
+    font-weight: 500;
+  }
+  
+  .payment-table tr:hover {
+    background-color: #f5fdfd;
+  }
+  
+  .payment-table .net-pay {
+    font-weight: bold;
+    color: #2a5e5e;
+  }
+  
+  .no-data, .loading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+  }
+  
+  /* Search container */
+  .search-container {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .search-container input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+  }
+  
+  .search-btn {
+    padding: 10px 20px;
+    background-color: #2a5e5e;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .search-btn:hover {
+    background-color: #1e4a4a;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .payment-table th, .payment-table td {
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+  }

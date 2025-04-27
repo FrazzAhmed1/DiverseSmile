@@ -41,7 +41,7 @@ const AppointmentScheduler = () => {
       const data = await response.json();
       if (response.ok) {
         const formattedAppointments = data
-          .filter(appt => appt.status !== 'cancelled')
+          .filter(appt => appt.status !== 'cancelled' && appt.status !== 'completed') 
           .map(appt => ({
             ...appt,
             date: new Date(appt.date).toLocaleDateString(undefined, {

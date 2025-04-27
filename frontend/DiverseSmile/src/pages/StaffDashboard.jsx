@@ -212,18 +212,10 @@ const StaffDashboard = () => {
           </div>
         );
 
-        case "payroll":
-          return (
-            <div className="dashboard-tips">
-              <Payroll hourlyRate={145} taxRate={0.1} />
-            </div>
-          );
-        
-      case "appointmentHistory":
+      case "payroll":
         return (
           <div className="dashboard-tips">
-            <h2>Appointment History</h2>
-            <p>📖 Appointment history section.</p>
+            <Payroll hourlyRate={145} taxRate={0.1} />
           </div>
         );
 
@@ -304,14 +296,6 @@ const StaffDashboard = () => {
                 onClick={() => setActiveTab("payroll")}
               >
                 Calculate Payroll
-              </button>
-            </li>
-            <li>
-              <button
-                className={activeTab === "appointmentHistory" ? "active-tab" : ""}
-                onClick={() => setActiveTab("appointmentHistory")}
-              >
-                Appointment History
               </button>
             </li>
             <li>

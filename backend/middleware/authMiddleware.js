@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import Patient from '../models/patientModel.js';
 import Staff from '../models/staffModel.js';
-import Admin from '../models/adminModel.js'; // ✅ Import your Admin model
+import Admin from '../models/adminModel.js';
 
 // Protect routes - verify JWT
 export const protect = async (req, res, next) => {
@@ -12,7 +12,7 @@ export const protect = async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      // ✅ Check Admin, then Staff, then Patient
+      // Check Admin, then Staff, then Patient
       req.user =
         (await Admin.findById(decoded.id)) ||
         (await Staff.findById(decoded.id)) ||
@@ -32,6 +32,17 @@ export const protect = async (req, res, next) => {
   if (!token) {
     return res.status(401).json({ message: 'Not authorized, no token' });
   }
+};
+
+// Admin authorization middleware
+export const admin = async (req, res, next) => {
+  // Check if user exists and is admin
+  if (!req.user || req.user.constructor.modelName !== 'Admin') {
+    return res.status(403).json({ 
+      message: 'Not authorized as admin' 
+    });
+  }
+  next();
 };
 
 // Role-based authorization

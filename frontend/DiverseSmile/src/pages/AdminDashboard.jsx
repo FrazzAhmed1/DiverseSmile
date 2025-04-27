@@ -6,6 +6,8 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("home");
   const [searchQuery, setSearchQuery] = useState("");
   const [staffPerformances, setStaffPerformances] = useState([]);
+  const [staffPayments, setStaffPayments] = useState([]);
+  const [isLoadingPayments, setIsLoadingPayments] = useState(false);
 
   const token = localStorage.getItem("token") || (JSON.parse(localStorage.getItem("user"))?.token ?? null);
   const user = JSON.parse(localStorage.getItem("user")) || {};
@@ -13,16 +15,10 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     if (activeTab === "performance") {
-      console.log("Admin token:", token);
-
-      axios
-        .get("http://localhost:5000/api/performance", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+      axios.get("http://localhost:5000/api/performance", {
+        headers: { Authorization: `Bearer ${token}` }
+      })
         .then((res) => {
-          console.log("Performance API response:", res.data);
           const data = Array.isArray(res.data) ? res.data : [];
           setStaffPerformances(data);
         })
@@ -30,8 +26,67 @@ const AdminDashboard = () => {
           console.error("Error fetching staff performance:", err);
           setStaffPerformances([]);
         });
+    } else if (activeTab === "payments") {
+      fetchStaffPayments();
     }
   }, [activeTab]);
+
+  const fetchStaffPayments = async () => {
+    setIsLoadingPayments(true);
+    try {
+      const res = await axios.get("http://localhost:5000/api/staff-payment", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setStaffPayments(Array.isArray(res.data) ? res.data : []);
+    } catch (err) {
+      console.error("Error fetching staff payments:", err);
+      setStaffPayments([]);
+    } finally {
+      setIsLoadingPayments(false);
+    }
+  };
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(amount);
+  };
+
+  const PaymentTable = () => (
+    <div className="payment-table-container">
+      <table className="payment-table">
+        <thead>
+          <tr>
+            <th>Staff Member</th>
+            <th>Hourly Rate</th>
+            <th>Hours Worked</th>
+            <th>Gross Pay</th>
+            <th>Taxes</th>
+            <th>Net Pay</th>
+            <th>Sessions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {staffPayments.map((payment) => (
+            <tr key={payment.staffId}>
+              <td>{payment.name}</td>
+              <td>{formatCurrency(payment.hourlyRate)}</td>
+              <td>{payment.hoursWorked.toFixed(2)}</td>
+              <td>{formatCurrency(payment.grossPay)}</td>
+              <td>{formatCurrency(payment.taxAmount)}</td>
+              <td className="net-pay">{formatCurrency(payment.netPay)}</td>
+              <td>{payment.logCount}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {staffPayments.length === 0 && !isLoadingPayments && (
+        <p className="no-data">No payment data available</p>
+      )}
+      {isLoadingPayments && <p className="loading">Loading payment data...</p>}
+    </div>
+  );
 
   const PerformanceChart = ({ attended = 75, cancelled = 34, confirmed = 0, completed = 0 }) => (
     <div className="chart-container">
@@ -95,10 +150,10 @@ const AdminDashboard = () => {
             Staff Performance
           </button>
           <button
-            className={`nav-item ${activeTab === "kpi" ? "active" : ""}`}
-            onClick={() => setActiveTab("kpi")}
+            className={`nav-item ${activeTab === "payments" ? "active" : ""}`}
+            onClick={() => setActiveTab("payments")}
           >
-            KPIs
+            Staff Payments
           </button>
         </nav>
 
@@ -163,12 +218,25 @@ const AdminDashboard = () => {
           </div>
         )}
 
-        {activeTab === "kpi" && (
-          <div className="kpi-screen">
-            <h1>Key Performance Indicators</h1>
+        {activeTab === "payments" && (
+          <div className="payments-screen">
+            <div className="analysis-header">
+              <h1>Staff Payment Records</h1>
+              <div className="search-container">
+                <input
+                  type="text"
+                  placeholder="Search staff member..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <button className="search-btn">Search</button>
+              </div>
+            </div>
+            <PaymentTable />
           </div>
         )}
       </div>
+
     </div>
   );
 };
