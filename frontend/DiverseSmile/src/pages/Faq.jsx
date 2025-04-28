@@ -44,7 +44,7 @@ const Faq = () => {
       </div>
 
       <div className="faq-footer">
-        <Link to="/" className="back-btn">← Back to Home</Link>
+        <Link to="/" className="nav-btn">← Back to Home</Link>
       </div>
     </div>
   );

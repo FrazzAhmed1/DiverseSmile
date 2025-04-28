@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/AdminDashboard.css";
 
@@ -8,10 +9,36 @@ const AdminDashboard = () => {
   const [staffPerformances, setStaffPerformances] = useState([]);
   const [staffPayments, setStaffPayments] = useState([]);
   const [isLoadingPayments, setIsLoadingPayments] = useState(false);
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("token") || (JSON.parse(localStorage.getItem("user"))?.token ?? null);
   const user = JSON.parse(localStorage.getItem("user")) || {};
   const adminName = user.firstName ? `${user.firstName} ${user.lastName}` : "Administrator";
+
+  const handleLogout = async () => {
+    try {
+      console.log("Attempting to log out...");
+      const response = await axios.post("http://localhost:5000/api/admin/logout");
+
+      if (response.status === 200) {
+        console.log("Logout successful");
+        // Clear user data from localStorage
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+
+        // Redirect to the homepage
+        navigate("/");
+      } else {
+        console.error("Logout failed:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error logging out:", error.response?.data?.message || error.message);
+      // Clear storage and redirect to homepage as a fallback
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      navigate("/");
+    }
+  };
 
   useEffect(() => {
     if (activeTab === "performance") {
@@ -160,11 +187,7 @@ const AdminDashboard = () => {
         <div className="sidebar-footer">
           <button
             className="logout-btn"
-            onClick={() => {
-              localStorage.removeItem("user");
-              localStorage.removeItem("token");
-              window.location.href = "/admin-login";
-            }}
+            onClick={handleLogout}
           >
             Logout
           </button>
@@ -174,9 +197,28 @@ const AdminDashboard = () => {
       <div className="main-content-area">
         {activeTab === "home" && (
           <div className="overview-screen">
-            <div className="welcome-banner">
-              <h1>Administration Dashboard</h1>
-              <p>Management platform</p>
+            <div className="dashboard-header">
+              <h2>Welcome, {adminName}!</h2>
+              <p>Administrative Control Center</p>
+              <div className="admin-features">
+                <div className="feature-card">
+                  <div className="feature-icon">👥</div>
+                  <h3>Staff Management</h3>
+                  <ul>
+                    <li>View all staff members</li>
+                    <li>Monitor performance metrics</li>
+                    <li>Track working hours</li>
+                  </ul>
+                </div>
+                <div className="feature-card">
+                  <div className="feature-icon">💰</div>
+                  <h3>Financial Oversight</h3>
+                  <ul>
+                    <li>Review payroll calculations</li>
+                    <li>Track Transactions</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         )}

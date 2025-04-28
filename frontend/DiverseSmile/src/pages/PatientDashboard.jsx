@@ -18,6 +18,7 @@ const PatientDashboard = () => {
                 console.log("Logout successful");
                 // Clear user data from localStorage
                 localStorage.removeItem("user");
+                localStorage.removeItem("token"); 
 
                 // Redirect to the homepage
                 navigate("/");
@@ -26,7 +27,9 @@ const PatientDashboard = () => {
             }
         } catch (error) {
             console.error("Error logging out:", error.response?.data?.message || error.message);
-            // Redirect to the homepage as a fallback
+            // Clear storage and redirect to homepage as a fallback
+            localStorage.removeItem("user");
+            localStorage.removeItem("token");
             navigate("/");
         }
     };

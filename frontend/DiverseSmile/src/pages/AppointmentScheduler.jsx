@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/AppointmentScheduler.css';
 import DiverseSmileLogo from '/src/assets/DiverseSmileLogo.png';
+import axios from 'axios';
 
 const AppointmentScheduler = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -14,11 +15,37 @@ const AppointmentScheduler = () => {
   const [reschedulingId, setReschedulingId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const timeSlots = [
     '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
     '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM',
   ];
+
+  const handleLogout = async () => {
+    try {
+      console.log("Attempting to log out...");
+      const response = await axios.post("http://localhost:5000/api/patients/logout");
+
+      if (response.status === 200) {
+        console.log("Logout successful");
+        // Clear user data from localStorage
+        localStorage.removeItem("user");
+        localStorage.removeItem("token"); 
+
+        // Redirect to the homepage
+        navigate("/");
+      } else {
+        console.error("Logout failed:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error logging out:", error.response?.data?.message || error.message);
+      // Clear storage and redirect to homepage as a fallback
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      navigate("/");
+    }
+  };
 
   useEffect(() => {
     fetchAppointments();
@@ -41,7 +68,7 @@ const AppointmentScheduler = () => {
       const data = await response.json();
       if (response.ok) {
         const formattedAppointments = data
-          .filter(appt => appt.status !== 'cancelled' && appt.status !== 'completed') 
+          .filter(appt => appt.status !== 'cancelled' && appt.status !== 'completed')
           .map(appt => ({
             ...appt,
             date: new Date(appt.date).toLocaleDateString(undefined, {
@@ -150,7 +177,12 @@ const AppointmentScheduler = () => {
         </div>
         <div className="nav-buttons">
           <Link to="/patient-dashboard" className="nav-btn">Dashboard</Link>
-          <button className="nav-btn">Logout</button>
+          <button
+            className="nav-btn"
+            onClick={handleLogout} 
+          >
+            Logout
+          </button>
           <Link to="/schedule-reminder" className="nav-btn">Set a Reminder</Link>
         </div>
       </nav>

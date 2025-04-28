@@ -20,7 +20,7 @@ const Reminder = () => {
     }
 
     try {
-      
+
       const response = await fetch('http://localhost:5000/api/appointments/patient', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -28,7 +28,7 @@ const Reminder = () => {
       });
 
       const appointments = await response.json();
-      const upcomingAppointment = appointments.find(a => a.status === 'scheduled');
+      const upcomingAppointment = appointments.find(a => a.status === 'confirmed');
 
       if (!upcomingAppointment) {
         throw new Error('No upcoming appointments found');
@@ -74,7 +74,7 @@ const Reminder = () => {
   };
 
   return (
-    <div>
+    <div className="page-container">
       <nav className="navbar">
         <div className="logo">
           <img src={DiverseSmileLogo} alt="DiverseSmile" />
@@ -84,35 +84,37 @@ const Reminder = () => {
           <button onClick={() => navigate(-1)} className="nav-btn">Back</button>
         </div>
       </nav>
+      <main className="main-content">
 
-      <div className="reminder-container">
-        <h1>Appointment Reminder</h1>
-        <p>Enter your email or phone number to receive appointment reminders.</p>
-        <p className="demo-note">DEMO: Reminders will be sent after 10 seconds</p>
+        <div className="reminder-container">
+          <h1>Appointment Reminder</h1>
+          <p>Enter your email or phone number to receive appointment reminders.</p>
+          <p className="demo-note">DEMO: Reminders will be sent after 10 seconds</p>
 
-        <form onSubmit={handleSubmit} className="reminder-form">
-          <input
-            type="text"
-            placeholder="Enter email or phone number"
-            value={contactInfo}
-            onChange={(e) => setContactInfo(e.target.value)}
-            className="reminder-input"
-          />
-          <button
-            type="submit"
-            className="reminder-btn"
-            disabled={loading}
-          >
-            {loading ? 'Setting Reminder...' : 'Set Reminder'}
-          </button>
-        </form>
+          <form onSubmit={handleSubmit} className="reminder-form">
+            <input
+              type="text"
+              placeholder="Enter email or phone number"
+              value={contactInfo}
+              onChange={(e) => setContactInfo(e.target.value)}
+              className="reminder-input"
+            />
+            <button
+              type="submit"
+              className="nav-btn"
+              disabled={loading}
+            >
+              {loading ? 'Setting Reminder...' : 'Set Reminder'}
+            </button>
+          </form>
 
-        {message && (
-          <p className={`reminder-message ${message.includes('sent!') ? 'success' : ''}`}>
-            {message}
-          </p>
-        )}
-      </div>
+          {message && (
+            <p className={`reminder-message ${message.includes('sent!') ? 'success' : ''}`}>
+              {message}
+            </p>
+          )}
+        </div>
+        </main>
     </div>
   );
 };

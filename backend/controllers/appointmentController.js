@@ -1,6 +1,5 @@
 import Appointment from '../models/appointmentModel.js';
 import Patient from '../models/patientModel.js';
-import Staff from '../models/staffModel.js';
 import Reminder from '../models/reminderModel.js';
 import { sendEmail } from '../config/nodemailer.js';
 import { scheduleReminder } from './reminderController.js';
@@ -44,19 +43,16 @@ export const createAppointment = async (req, res) => {
 
         await sendEmail({
             to: patient.email,
-            subject: 'Appointment Confirmation - DiverseSmile',
+            subject: 'Appointment Scheduled - Needs Confirmation',
             html: `
-        <h1>Your Appointment is Confirmed</h1>
-        <p>Dear ${patient.firstName} ${patient.lastName},</p>
+        <h1>Your Appointment Has Been Scheduled</h1>
         <p>Your dental appointment has been scheduled for:</p>
         <h2>${formattedDate} at ${time}</h2>
-        <p>Please arrive 10 minutes before your scheduled time.</p>
-        <p>If you need to reschedule or cancel, please contact us at least 24 hours in advance.</p>
+        <p><strong>Note:</strong> This appointment needs to be confirmed by our staff.</p>
+        <p>You will receive another notification once it's confirmed.</p>
         <p>Best regards,<br/>The DiverseSmile Team</p>
       `
         });
-
-        await scheduleReminder(appointment._id, patient.email);
 
         res.status(201).json(appointment);
     } catch (error) {
@@ -110,23 +106,23 @@ export const rescheduleAppointment = async (req, res) => {
             day: 'numeric'
         });
 
+        // In the rescheduleAppointment function
         await sendEmail({
             to: patient.email,
-            subject: 'Appointment Rescheduled - DiverseSmile',
+            subject: 'Appointment Rescheduled - Needs Confirmation',
             html: `
-        <h1>Your Appointment Has Been Rescheduled</h1>
-        <p>Dear ${patient.firstName} ${patient.lastName},</p>
-        <p>Your dental appointment has been rescheduled to:</p>
-        <h2>${formattedDate} at ${time}</h2>
-        <p>Please arrive 10 minutes before your scheduled time.</p>
-        <p>If you need to make further changes, please contact us at least 24 hours in advance.</p>
-        <p>Best regards,<br/>The DiverseSmile Team</p>
-      `
+      <h1>Your Appointment Has Been Rescheduled</h1>
+      <p>Dear ${patient.firstName} ${patient.lastName},</p>
+      <p>Your dental appointment has been rescheduled to:</p>
+      <h2>${formattedDate} at ${time}</h2>
+      <p><strong>Note:</strong> This appointment needs to be reconfirmed by our staff.</p>
+      <p>You will receive another notification once it's confirmed.</p>
+      <p>Best regards,<br/>The DiverseSmile Team</p>
+    `
         });
 
         // Cancel any existing reminders and schedule new one
         await Reminder.deleteMany({ appointmentId });
-        await scheduleReminder(updatedAppointment._id, patient.email);
 
         res.status(200).json(updatedAppointment);
     } catch (error) {
@@ -180,14 +176,17 @@ export const cancelAppointment = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-// @desc    Get all pending appointments (for staff dashboard)
+// @desc    Get all pending and rescheduled appointments (for staff dashboard)
 // @route   GET /api/appointments/pending
 // @access  Private/Staff
 export const getPendingAppointments = async (req, res) => {
     try {
-        const appointments = await Appointment.find({ status: 'pending' })
+        const appointments = await Appointment.find({
+            status: { $in: ['pending', 'rescheduled'] }
+        })
             .populate('patientId', 'firstName lastName')
             .sort({ date: 1, time: 1 });
+
         res.status(200).json(appointments);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -223,8 +222,10 @@ export const confirmAppointment = async (req, res) => {
             return res.status(404).json({ message: 'Appointment not found' });
         }
 
-        if (appointment.status !== 'pending') {
-            return res.status(400).json({ message: 'Appointment is not pending confirmation' });
+        if (!['pending', 'rescheduled'].includes(appointment.status)) {
+            return res.status(400).json({
+                message: 'Appointment is not pending confirmation'
+            });
         }
 
         const updatedAppointment = await Appointment.findByIdAndUpdate(
@@ -256,6 +257,8 @@ export const confirmAppointment = async (req, res) => {
                 <p>Best regards,<br/>The DiverseSmile Team</p>
             `
         });
+
+        await scheduleReminder(updatedAppointment._id, updatedAppointment.patientId.email);
 
         await updateStaffPerformance(req.user._id, 'confirmed');
 

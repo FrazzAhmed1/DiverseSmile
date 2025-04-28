@@ -274,14 +274,7 @@
     }
 }
 
-@media (max-width: 768px) {
-    .main-pie {
-        flex-direction: column;
-    }
-    .welcome-banner h1 {
-        font-size: 28px;
-    }
-}
+
 .performance-entry {
     margin-bottom: 30px;
     padding: 20px;
@@ -385,5 +378,87 @@
     .payment-table th, .payment-table td {
       padding: 8px 10px;
       font-size: 14px;
+    }
+  }
+
+  /* Welcome Page Styles */
+.dashboard-header {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .dashboard-header h2 {
+    color: var(--primary-color);
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+  
+  .dashboard-header p {
+    color: #6c757d;
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  
+  .admin-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+  
+  .feature-card {
+    background: var(--light-bg);
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-color);
+  }
+  
+  .feature-icon {
+    font-size: 36px;
+    margin-bottom: 15px;
+  }
+  
+  .feature-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+  
+  .feature-card ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .feature-card li {
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 20px;
+  }
+  
+  .feature-card li:before {
+    content: "•";
+    color: var(--primary-color);
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+  }
+
+  /* Responsive adjustments */
+@media (max-width: 768px) {
+    .dashboard-header {
+      padding: 25px;
+    }
+    
+    .admin-features {
+      grid-template-columns: 1fr;
+    }
+    
+    .feature-card {
+      padding: 20px;
     }
   }

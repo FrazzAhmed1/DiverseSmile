@@ -1,7 +1,5 @@
-// src/pages/StaffDashboard.jsx
-
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Payroll from "./Payroll";
 import axios from "axios";
 import { format } from "date-fns";
@@ -18,6 +16,32 @@ const StaffDashboard = () => {
   const user = JSON.parse(localStorage.getItem("user")) || {};
   const token = localStorage.getItem("token");
   const staffName = user.firstName || "Staff Member";
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      console.log("Attempting to log out...");
+      const response = await axios.post("http://localhost:5000/api/staff/logout");
+
+      if (response.status === 200) {
+        console.log("Logout successful");
+        // Clear user data from localStorage
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+
+        // Redirect to the homepage
+        navigate("/");
+      } else {
+        console.error("Logout failed:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error logging out:", error.response?.data?.message || error.message);
+      // Clear storage and redirect to homepage as a fallback
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      navigate("/");
+    }
+  };
 
   // If we navigated here with a tab in state, select it
   useEffect(() => {
@@ -147,9 +171,9 @@ const StaffDashboard = () => {
       case "pendingAppointments":
         return (
           <div className="dashboard-tips">
-            <h2>Pending Appointments</h2>
+            <h2>Pending & Rescheduled Appointments</h2>
             {pendingAppointments.length === 0 ? (
-              <p>No pending appointments</p>
+              <p>No pending or rescheduled appointments</p>
             ) : (
               pendingAppointments.map((app) => (
                 <div key={app._id} className="submission-entry">
@@ -158,6 +182,12 @@ const StaffDashboard = () => {
                       {app.patientId.firstName} {app.patientId.lastName}
                     </strong>{" "}
                     — {format(new Date(app.date), "PPP")} at {app.time}
+                    {app.status === 'rescheduled' && (
+                      <span className="status-badge rescheduled">Rescheduled</span>
+                    )}
+                    {app.status === 'pending' && (
+                      <span className="status-badge pending">Pending</span>
+                    )}
                   </p>
                   <button onClick={() => confirmAppointment(app._id)}>✅ Claim</button>
                 </div>
@@ -243,12 +273,6 @@ const StaffDashboard = () => {
           </div>
         );
     }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    window.location.href = "/staff-login";
   };
 
   return (

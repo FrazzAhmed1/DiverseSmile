@@ -58,3 +58,11 @@ export const loginAdmin = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+// @desc    Logout Admin
+// @route   POST /api/admin/logout
+// @access  Private
+export const logoutAdmin = (req, res) => {
+    // Clear any session or token-related logic if applicable
+    res.status(200).json({ message: "Admin logged out successfully" });
+  };

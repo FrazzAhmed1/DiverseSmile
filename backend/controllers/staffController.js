@@ -51,3 +51,11 @@ export const registerStaff = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// @desc    Logout staff
+// @route   POST /api/staff/logout
+// @access  Private
+export const logoutStaff = (req, res) => {
+  // Clear any session or token-related logic if applicable
+  res.status(200).json({ message: "Staff logged out successfully" });
+};
