@@ -94,7 +94,7 @@ const CreateNewPassword = () => {
                     </div>
                     <button
                         type="submit"
-                        className="create-password-button"
+                        className="nav-btn"
                         disabled={loading}
                     >
                         {loading ? 'Updating...' : 'Submit'}

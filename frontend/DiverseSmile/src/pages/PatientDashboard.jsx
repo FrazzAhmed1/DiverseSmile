@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react"; 
 import Sidebar from "../components/Sidebar";
-import Payments from "../components/Tips";
+import Tips from "../components/Tips";
 import "../styles/Dashboard.css";
 import axios from "axios";
 
 const PatientDashboard = () => {
+    const [activeTab, setActiveTab] = useState("welcome"); 
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem("user")) || {};
     const patientName = user.firstName && user.firstName.trim() ? user.firstName : "Patient";
@@ -36,14 +38,14 @@ const PatientDashboard = () => {
 
     return (
         <div className="dashboard-page">
-            <Sidebar handleLogout={handleLogout} />
+            <Sidebar handleLogout={handleLogout} activeTab={activeTab} setActiveTab={setActiveTab} />
             <div className="dashboard-main">
                 <header className="dashboard-header">
                     <h1>Welcome, {patientName}!</h1>
                     <p>Your personalized dashboard for managing appointments, payments, and more.</p>
                 </header>
                 <section className="dashboard-content">
-                    <Payments />
+                    <Tips />
                 </section>
             </div>
         </div>

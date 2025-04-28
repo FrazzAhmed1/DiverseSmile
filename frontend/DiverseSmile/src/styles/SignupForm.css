@@ -68,24 +68,6 @@ input {
   font-size: 15px;
 }
 
-.auth-submit-btn {
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(135deg, #007bff, #0056b3);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.auth-submit-btn:hover {
-  opacity: 0.95;
-  transform: translateY(-1px);
-}
-
 .switch-role-text {
   text-align: center;
   margin-top: 1rem;

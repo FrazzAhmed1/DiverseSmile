@@ -80,7 +80,7 @@ const AdminSignupForm = ({ onSubmit, message, privateKey, type }) => {
                         </>
                     )}
 
-                    <button type="submit" className="auth-submit-btn">{type === "signup" ? "Sign Up" : "Login"}</button>
+                    <button type="submit" className="nav-btn">{type === "signup" ? "Sign Up" : "Login"}</button>
                 </form>
 
                 {type === "signup" && (

@@ -1,6 +1,7 @@
 import Appointment from '../models/appointmentModel.js';
 import Patient from '../models/patientModel.js';
 import Reminder from '../models/reminderModel.js';
+import Payment from '../models/paymentModel.js';
 import { sendEmail } from '../config/nodemailer.js';
 import { scheduleReminder } from './reminderController.js';
 import { updateStaffPerformance } from './performanceController.js';
@@ -36,6 +37,14 @@ export const createAppointment = async (req, res) => {
             patientId,
             date,
             time,
+            status: 'pending'
+        });
+
+        // Create payment record
+        await Payment.create({
+            patientId,
+            appointmentId: appointment._id,
+            amount: 75.00,
             status: 'pending'
         });
 

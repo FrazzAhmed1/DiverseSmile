@@ -86,3 +86,51 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(49, 130, 206, 0.2);
 }
+
+/* PaymentSelection.css additions */
+.payment-history {
+    margin-top: 2rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.payment-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.payment-table th, .payment-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.payment-table th {
+    background-color: #a1eaea;
+    font-weight: 600;
+}
+
+.status-completed {
+    color: #28a745;
+    font-weight: 500;
+}
+
+.status-pending {
+    color: #ffc107;
+    font-weight: 500;
+}
+
+.status-failed {
+    color: #dc3545;
+    font-weight: 500;
+}
+
+.total-paid {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 1rem 0;
+    color: #333;
+}

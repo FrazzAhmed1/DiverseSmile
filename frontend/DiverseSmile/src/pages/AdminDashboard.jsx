@@ -8,7 +8,9 @@ const AdminDashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [staffPerformances, setStaffPerformances] = useState([]);
   const [staffPayments, setStaffPayments] = useState([]);
+  const [patientTransactions, setPatientTransactions] = useState([]);
   const [isLoadingPayments, setIsLoadingPayments] = useState(false);
+  const [isLoadingTransactions, setIsLoadingTransactions] = useState(false);
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token") || (JSON.parse(localStorage.getItem("user"))?.token ?? null);
@@ -55,6 +57,8 @@ const AdminDashboard = () => {
         });
     } else if (activeTab === "payments") {
       fetchStaffPayments();
+    } else if (activeTab === "transactions") {
+      fetchPatientTransactions();
     }
   }, [activeTab]);
 
@@ -73,11 +77,31 @@ const AdminDashboard = () => {
     }
   };
 
+  const fetchPatientTransactions = async () => {
+    setIsLoadingTransactions(true);
+    try {
+      const res = await axios.get("http://localhost:5000/api/payments/all", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setPatientTransactions(Array.isArray(res.data) ? res.data : []);
+    } catch (err) {
+      console.error("Error fetching patient transactions:", err);
+      setPatientTransactions([]);
+    } finally {
+      setIsLoadingTransactions(false);
+    }
+  };
+
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD'
     }).format(amount);
+  };
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
   };
 
   const PaymentTable = () => (
@@ -112,6 +136,56 @@ const AdminDashboard = () => {
         <p className="no-data">No payment data available</p>
       )}
       {isLoadingPayments && <p className="loading">Loading payment data...</p>}
+    </div>
+  );
+
+  const TransactionTable = () => (
+    <div className="Payment-table-container">
+      <table className="payment-table">
+        <thead>
+          <tr>
+            <th>Patient Name</th>
+            <th>Appointment Date</th>
+            <th>Transaction Date</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Transaction ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {patientTransactions
+            .filter(transaction => {
+              if (!searchQuery) return true;
+              const searchLower = searchQuery.toLowerCase();
+              const patientName = `${transaction.patientId?.firstName || ''} ${transaction.patientId?.lastName || ''}`.toLowerCase();
+              return (
+                patientName.includes(searchLower) ||
+                transaction.transactionId.toLowerCase().includes(searchLower)
+              );
+            })
+            .map((transaction) => (
+              <tr key={transaction._id}>
+                <td>
+                  {transaction.patientId?.firstName} {transaction.patientId?.lastName}
+                </td>
+                <td>
+                  {transaction.appointmentId?.date ?
+                    formatDate(transaction.appointmentId.date) : 'N/A'}
+                </td>
+                <td>{formatDate(transaction.paymentDate)}</td>
+                <td>{formatCurrency(transaction.amount)}</td>
+                <td className={`status-${transaction.status}`}>
+                  {transaction.status}
+                </td>
+                <td>{transaction.transactionId}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+      {patientTransactions.length === 0 && !isLoadingTransactions && (
+        <p className="no-data">No transaction data available</p>
+      )}
+      {isLoadingTransactions && <p className="loading">Loading transaction data...</p>}
     </div>
   );
 
@@ -182,6 +256,12 @@ const AdminDashboard = () => {
           >
             Staff Payments
           </button>
+          <button
+            className={`nav-item ${activeTab === "transactions" ? "active" : ""}`}
+            onClick={() => setActiveTab("transactions")}
+          >
+            Transaction Logs
+          </button>
         </nav>
 
         <div className="sidebar-footer">
@@ -216,6 +296,7 @@ const AdminDashboard = () => {
                   <ul>
                     <li>Review payroll calculations</li>
                     <li>Track Transactions</li>
+                    <li>Monitor patient payments</li>
                   </ul>
                 </div>
               </div>
@@ -227,15 +308,6 @@ const AdminDashboard = () => {
           <div className="performance-screen">
             <div className="analysis-header">
               <h1>Staff Performance Analytics</h1>
-              <div className="search-container">
-                <input
-                  type="text"
-                  placeholder="Search staff member..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <button className="search-btn">Search</button>
-              </div>
             </div>
 
             <div className="chart-section">
@@ -265,20 +337,22 @@ const AdminDashboard = () => {
             <div className="analysis-header">
               <h1>Staff Payment Records</h1>
               <div className="search-container">
-                <input
-                  type="text"
-                  placeholder="Search staff member..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <button className="search-btn">Search</button>
               </div>
             </div>
             <PaymentTable />
           </div>
         )}
-      </div>
 
+        {activeTab === "transactions" && (
+          <div className="transactions-screen">
+            <div className="analysis-header">
+              <h1>Patient Transaction Logs</h1>
+              <p>View all appointment fee payments made by patients</p>
+            </div>
+            <TransactionTable />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

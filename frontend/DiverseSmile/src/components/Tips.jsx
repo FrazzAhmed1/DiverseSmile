@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/Dashboard.css";
 
-const Payments = () => {
+const Tips = () => {
     return (
         <div className="payments">
             <h2 className="payments-title">Dental Care Tips</h2>
@@ -16,4 +16,4 @@ const Payments = () => {
     );
 };
 
-export default Payments;
+export default Tips;

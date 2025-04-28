@@ -1,10 +1,26 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import "../styles/PaymentSuccess.css";
 
 const PaymentConfirmation = () => {
-    // This component is for displaying the payment confirmation
+    const location = useLocation();
+    const [paymentDetails, setPaymentDetails] = useState({
+        amount: 75.00,
+        date: new Date().toLocaleDateString(),
+        appointmentId: ''
+    });
+
+    useEffect(() => {
+        if (location.state) {
+            setPaymentDetails({
+                amount: location.state.amount || 75.00,
+                date: new Date().toLocaleDateString(),
+                appointmentId: location.state.appointmentId || ''
+            });
+        }
+    }, [location]);
+
     return (
         <div className="dashboard-page">
             <Sidebar />
@@ -17,17 +33,23 @@ const PaymentConfirmation = () => {
                     <div className="confirmation-card">
                         <div className="confirmation-icon">✓</div>
                         <h2>Payment Received</h2>
-                        <p className="confirmation-amount">$370.00</p>
-                        
+                        <p className="confirmation-amount">${paymentDetails.amount.toFixed(2)}</p>
+
                         <div className="confirmation-details">
                             <div className="detail-row">
                                 <span>Date:</span>
-                                <span>{new Date().toLocaleDateString()}</span>
+                                <span>{paymentDetails.date}</span>
+                            </div>
+                            <div className="detail-row">
+                                <span>Transaction ID:</span>
+                                <span>{Math.random().toString(36).substring(2, 15)}</span>
                             </div>
                         </div>
 
                         <div className="confirmation-actions">
-                            <Link to="/patient-dashboard" className="dashboard-button">Back to Dashboard</Link>
+                            <Link to="/patient-dashboard" className="dashboard-button">
+                                Back to Dashboard
+                            </Link>
                         </div>
                     </div>
                 </div>

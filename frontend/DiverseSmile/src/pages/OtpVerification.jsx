@@ -126,7 +126,7 @@ const OtpVerification = () => {
                     </div>
                     <button
                         type="submit"
-                        className="otp-submit-button"
+                        className="nav-btn"
                         disabled={loading}
                     >
                         {loading ? 'Verifying...' : 'Enter'}

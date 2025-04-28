@@ -462,3 +462,63 @@
       padding: 20px;
     }
   }
+
+  /* Transaction Table Styles */
+.transaction-table-container {
+  margin-top: 20px;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.transaction-table th, 
+.transaction-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.transaction-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.status-pending {
+  color: #ffc107;
+  font-weight: 500;
+}
+
+.status-completed {
+  color: #28a745;
+  font-weight: 500;
+}
+
+.status-failed {
+  color: #dc3545;
+  font-weight: 500;
+}
+
+.status-refunded {
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.transactions-screen .analysis-header {
+  margin-bottom: 20px;
+}
+
+.transactions-screen h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.transactions-screen p {
+  color: #6c757d;
+}

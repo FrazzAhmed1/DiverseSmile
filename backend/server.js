@@ -12,6 +12,7 @@ import reminderRoutes from "./routes/reminderRoutes.js";
 import loginLogRoutes from "./routes/loginLogRoutes.js"; 
 import performanceRoutes from './routes/performanceRoutes.js';
 import staffPaymentRoutes from './routes/staffPaymentRoutes.js';
+import paymentRoutes from './routes/paymentRoutes.js';
 import cors from "cors";
 
 const app = express();
@@ -33,6 +34,8 @@ app.use("/api/reminders", reminderRoutes);
 app.use("/api/login-logs", loginLogRoutes); 
 app.use('/api/performance', performanceRoutes);
 app.use('/api/staff-payment', staffPaymentRoutes);
+app.use("/api/payments", paymentRoutes);
+
 
 
 // Start server

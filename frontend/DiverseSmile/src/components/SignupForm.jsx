@@ -69,7 +69,7 @@ const SignupForm = ({ role, onSubmit, message }) => {
               required
             />
           </div>
-          <button type="submit" className="auth-submit-btn">Sign Up</button>
+          <button type="submit" className="nav-btn">Sign Up</button>
 
           {/* Switch Role Link */}
           <p className="switch-role-text">

@@ -102,7 +102,7 @@ const ForgotPassword = () => {
                     </div>
                     <button
                         type="submit"
-                        className="reset-password-button"
+                        className="nav-btn"
                         disabled={loading}
                     >
                         {loading ? 'Sending...' : 'Reset Password'}

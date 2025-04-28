@@ -11,7 +11,7 @@ const LoginForm = ({ role, onSubmit, error }) => {
                 </Link>
 
                 <h2>{role === "patient" ? "Patient Login" : "Staff Login"}</h2>
-                <form className="login-form" onSubmit={onSubmit}>
+                <form className="signup-form" onSubmit={onSubmit}>
                     {error && <div className="error-message">{error}</div>}
                     <div className="form-group">
                         <label>Email</label>
@@ -29,7 +29,7 @@ const LoginForm = ({ role, onSubmit, error }) => {
                             required
                         />
                     </div>
-                    <button type="submit" className="auth-login-btn">Login</button>
+                    <button type="submit" className="nav-btn">Login</button>
                     <p style={{ textAlign: "center", marginTop: "10px" }}>
                         Forgot Password?{" "}
                         <Link to="/forgot-password" className="forgot-password-link">
