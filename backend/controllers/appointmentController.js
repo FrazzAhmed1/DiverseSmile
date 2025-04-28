@@ -13,9 +13,21 @@ export const createAppointment = async (req, res) => {
         const { date, time } = req.body;
         const patientId = req.user._id;
 
+        // Check if patient already has an active appointment
+        const existingActiveAppointment = await Appointment.findOne({
+            patientId,
+            status: { $in: ['pending', 'confirmed', 'rescheduled'] }
+        });
+
+        if (existingActiveAppointment) {
+            return res.status(400).json({
+                message: 'You already have an active appointment. Please cancel or complete it before scheduling a new one.'
+            });
+        }
+
         // Check if slot is available
-        const existingAppointment = await Appointment.findOne({ date, time });
-        if (existingAppointment) {
+        const existingTimeSlot = await Appointment.findOne({ date, time });
+        if (existingTimeSlot) {
             return res.status(400).json({ message: 'This time slot is already booked' });
         }
 
@@ -80,11 +92,25 @@ export const rescheduleAppointment = async (req, res) => {
     try {
         const { date, time } = req.body;
         const appointmentId = req.params.id;
+        const patientId = req.user._id;
 
         // Check if new slot is available
         const existingAppointment = await Appointment.findOne({ date, time });
         if (existingAppointment) {
             return res.status(400).json({ message: 'This time slot is already booked' });
+        }
+
+        // Verify this is the patient's only active appointment
+        const otherActiveAppointments = await Appointment.find({
+            patientId,
+            status: { $in: ['pending', 'confirmed', 'rescheduled'] },
+            _id: { $ne: appointmentId } // Exclude the current appointment being rescheduled
+        });
+
+        if (otherActiveAppointments.length > 0) {
+            return res.status(400).json({
+                message: 'You already have another active appointment. Please cancel it before rescheduling.'
+            });
         }
 
         const updatedAppointment = await Appointment.findByIdAndUpdate(
@@ -106,7 +132,6 @@ export const rescheduleAppointment = async (req, res) => {
             day: 'numeric'
         });
 
-        // In the rescheduleAppointment function
         await sendEmail({
             to: patient.email,
             subject: 'Appointment Rescheduled - Needs Confirmation',

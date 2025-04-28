@@ -15,6 +15,7 @@ const AppointmentScheduler = () => {
   const [reschedulingId, setReschedulingId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [hasActiveAppointment, setHasActiveAppointment] = useState(false);
   const navigate = useNavigate();
 
   const timeSlots = [
@@ -31,7 +32,7 @@ const AppointmentScheduler = () => {
         console.log("Logout successful");
         // Clear user data from localStorage
         localStorage.removeItem("user");
-        localStorage.removeItem("token"); 
+        localStorage.removeItem("token");
 
         // Redirect to the homepage
         navigate("/");
@@ -75,7 +76,9 @@ const AppointmentScheduler = () => {
               weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
             })
           }));
+
         setAppointments(formattedAppointments);
+        setHasActiveAppointment(formattedAppointments.length > 0);
       } else {
         throw new Error(data.message || 'Failed to fetch appointments');
       }
@@ -167,7 +170,103 @@ const AppointmentScheduler = () => {
     setSelectedTime('');
     setConfirmation('🛠️ Pick a New Time and Date');
   };
+  if (hasActiveAppointment && !reschedulingId) {
+    return (
+      <div>
+        <nav className="navbar">
+          <div className="logo">
+            <img src={DiverseSmileLogo} alt="Logo" />
+            DiverseSmile
+          </div>
+          <div className="nav-buttons">
+            <Link to="/patient-dashboard" className="nav-btn">Dashboard</Link>
+            <button
+              className="nav-btn"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+            <Link to="/schedule-reminder" className="nav-btn">Set a Reminder</Link>
+          </div>
+        </nav>
+        <div className="appointment-container">
+          <h1>📅 Schedule Appointment</h1>
+          <div className="alert-message">
+            <p>You already have an active appointment. Please cancel or complete it before scheduling a new one.</p>
 
+            <div style={{ marginTop: "40px", textAlign: "left" }}>
+              <h2 style={{ fontSize: "24px", marginBottom: "10px" }}>📝 Your Current Appointment</h2>
+              <ul style={{ paddingLeft: 0, listStyle: 'none' }}>
+                {appointments.map(({ _id, date, time, status }) => (
+                  <li key={_id} style={{
+                    backgroundColor: "#fff",
+                    padding: "12px 16px",
+                    borderRadius: "12px",
+                    marginBottom: "12px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                    flexWrap: "nowrap" // Add this to prevent wrapping
+                  }}>
+                    <div style={{
+                      display: "flex",
+                      alignItems: "center",
+                      flexWrap: "wrap",
+                      gap: "8px" // Add gap between elements
+                    }}>
+                      <span>📍 <strong>{date}</strong> at <strong>{time}</strong></span>
+                      <span className={`status-badge ${status}`}>
+                        {status.charAt(0).toUpperCase() + status.slice(1)}
+                      </span>
+                    </div>
+                    <div style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px", // Add gap between buttons
+                      flexShrink: 0 // Prevent shrinking
+                    }}>
+                      <button
+                        onClick={() => handleReschedule(_id)}
+                        style={{
+                          backgroundColor: "#f0c14b",
+                          color: "black",
+                          marginRight: "10px",
+                          border: "none",
+                          padding: "6px 12px",
+                          borderRadius: "20px",
+                          cursor: "pointer",
+                          whiteSpace: "nowrap"
+                        }}
+                        disabled={loading}
+                      >
+                        🔄 Reschedule
+                      </button>
+                      <button
+                        onClick={() => handleDelete(_id, date, time)}
+                        style={{
+                          backgroundColor: "#ff4d4d",
+                          color: "white",
+                          border: "none",
+                          padding: "6px 12px",
+                          borderRadius: "20px",
+                          cursor: "pointer",
+                          whiteSpace: "nowrap"
+                        }}
+                        disabled={loading}
+                      >
+                        ❌ Cancel
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
       <nav className="navbar">
@@ -179,7 +278,7 @@ const AppointmentScheduler = () => {
           <Link to="/patient-dashboard" className="nav-btn">Dashboard</Link>
           <button
             className="nav-btn"
-            onClick={handleLogout} 
+            onClick={handleLogout}
           >
             Logout
           </button>
@@ -243,58 +342,7 @@ const AppointmentScheduler = () => {
         {confirmation && <div className="toast confirm-toast">{confirmation}</div>}
         {cancelMsg && <div className="toast cancel-toast">{cancelMsg}</div>}
 
-        {appointments.length > 0 && (
-          <div style={{ marginTop: "40px", textAlign: "left" }}>
-            <h2 style={{ fontSize: "24px", marginBottom: "10px" }}>📝 Upcoming Appointments</h2>
-            <ul style={{ paddingLeft: 0, listStyle: 'none' }}>
-              {appointments.map(({ _id, date, time }) => (
-                <li key={_id} style={{
-                  backgroundColor: "#fff",
-                  padding: "12px 16px",
-                  borderRadius: "12px",
-                  marginBottom: "12px",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
-                }}>
-                  <span>📍 <strong>{date}</strong> at <strong>{time}</strong></span>
-                  <div>
-                    <button
-                      onClick={() => handleReschedule(_id)}
-                      style={{
-                        backgroundColor: "#f0c14b",
-                        color: "black",
-                        marginRight: "10px",
-                        border: "none",
-                        padding: "6px 12px",
-                        borderRadius: "20px",
-                        cursor: "pointer"
-                      }}
-                      disabled={loading}
-                    >
-                      🔄 Reschedule
-                    </button>
-                    <button
-                      onClick={() => handleDelete(_id, date, time)}
-                      style={{
-                        backgroundColor: "#ff4d4d",
-                        color: "white",
-                        border: "none",
-                        padding: "6px 12px",
-                        borderRadius: "20px",
-                        cursor: "pointer"
-                      }}
-                      disabled={loading}
-                    >
-                      ❌ Cancel
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+
       </div>
 
       <style>{`

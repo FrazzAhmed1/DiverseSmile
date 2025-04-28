@@ -29,8 +29,9 @@ const appointmentSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-// Prevent double booking
+// Prevent double booking and multiple active appointments per patient
 appointmentSchema.index({ date: 1, time: 1 }, { unique: true });
+appointmentSchema.index({ patientId: 1, status: 1 });
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);
 export default Appointment;
