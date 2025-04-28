@@ -12,19 +12,19 @@ const Sidebar = ({ handleLogout, activeTab, setActiveTab }) => {
                         to="/patient-dashboard"
                         className={activeTab === "welcome" ? "active" : ""}
                         onClick={() => setActiveTab("welcome")}
-                        
+
                     >
                         🏠 Welcome
                     </Link>
 
                 </li>
                 <li>
+                    <Link to="/schedule">📅 Appointments</Link>
+                </li>
+                <li>
                     <Link to="/payments">
                         💳 Payments
                     </Link>
-                </li>
-                <li>
-                    <Link to="/schedule">📅 Appointments</Link>
                 </li>
                 <li>
                     <Link to="/patient-profile">👤 Profile</Link>

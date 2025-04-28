@@ -40,13 +40,6 @@ export const createAppointment = async (req, res) => {
             status: 'pending'
         });
 
-        // Create payment record
-        await Payment.create({
-            patientId,
-            appointmentId: appointment._id,
-            amount: 75.00,
-            status: 'pending'
-        });
 
         // Get patient details for email
         const patient = await Patient.findById(patientId);
@@ -178,6 +171,13 @@ export const cancelAppointment = async (req, res) => {
         if (!appointment) {
             return res.status(404).json({ message: 'Appointment not found' });
         }
+
+        // Update associated payment status
+        await Payment.findOneAndUpdate(
+            { appointmentId: appointment._id },
+            { status: 'cancelled' },
+            { new: true }
+        );
 
         // Get patient details for email
         const patient = await Patient.findById(appointment.patientId);
@@ -314,11 +314,20 @@ export const completeAppointment = async (req, res) => {
             },
             { status: 'completed' },
             { new: true }
-        );
+        ).populate('patientId');
 
         if (!appointment) {
             return res.status(404).json({ message: 'Appointment not found or not assigned to you' });
         }
+
+        // Create payment record
+        await Payment.create({
+            patientId: appointment.patientId._id,
+            appointmentId: appointment._id,
+            amount: 75.00,
+            status: 'pending'
+        });
+
 
         await updateStaffPerformance(appointment.assignedStaffId, 'completed');
 
@@ -345,6 +354,12 @@ export const staffCancelAppointment = async (req, res) => {
         if (!appointment) {
             return res.status(404).json({ message: 'Appointment not found or not assigned to you' });
         }
+        // Update associated payment status
+        await Payment.findOneAndUpdate(
+            { appointmentId: appointment._id },
+            { status: 'cancelled' },
+            { new: true }
+        );
 
         // Notify patient about cancellation
         const formattedDate = new Date(appointment.date).toLocaleDateString('en-US', {

@@ -134,3 +134,8 @@
     margin: 1rem 0;
     color: #333;
 }
+
+.status-cancelled {
+    color: #dc3545;
+    font-weight: 500;
+}

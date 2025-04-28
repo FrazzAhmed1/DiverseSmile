@@ -39,16 +39,25 @@ const PaymentSelection = () => {
                     headers: { Authorization: `Bearer ${token}` }
                 });
 
-                setPayments(response.data);
+                // Filter to only show payments for completed appointments
+                const filteredPayments = response.data.filter(payment =>
+                    payment.appointmentId?.status === 'completed' ||
+                    payment.status === 'completed'
+                );
+
+                setPayments(filteredPayments);
 
                 // Calculate total paid
-                const paid = response.data
+                const paid = filteredPayments
                     .filter(p => p.status === 'completed')
                     .reduce((sum, p) => sum + p.amount, 0);
                 setTotalPaid(paid);
 
-                // Find pending payment
-                const pending = response.data.find(p => p.status === 'pending');
+                // Find pending payment for completed appointments
+                const pending = filteredPayments.find(p =>
+                    p.status === 'pending' &&
+                    p.appointmentId?.status === 'completed'
+                );
                 setPendingPayment(pending);
 
                 setError(null);
@@ -94,7 +103,7 @@ const PaymentSelection = () => {
 
                 <div className="payment-container">
                     {/* Pending Payment Card */}
-                    {pendingPayment && (
+                    {pendingPayment && pendingPayment.appointmentId?.status === 'completed' && (
                         <div className="payment-card">
                             <h3>Appointment Fee Due</h3>
                             <div className="total-amount">${pendingPayment.amount.toFixed(2)}</div>
@@ -104,7 +113,7 @@ const PaymentSelection = () => {
                                 <div className="notice-content">
                                     <h4>Payment Guidelines</h4>
                                     <ul>
-                                        <li>Payment secures your appointment</li>
+                                        <li>Payment for completed appointment</li>
                                         <li>Payments are final and no refunds are provided</li>
                                         <li>Insurance claims must be filed separately</li>
                                     </ul>
@@ -147,6 +156,7 @@ const PaymentSelection = () => {
                                             <td>${payment.amount.toFixed(2)}</td>
                                             <td className={`status-${payment.status}`}>
                                                 {payment.status}
+                                                {payment.status === 'cancelled'}
                                             </td>
                                         </tr>
                                     ))}
