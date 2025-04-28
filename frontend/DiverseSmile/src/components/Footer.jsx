@@ -25,6 +25,7 @@ const Footer = () => {
           <div className="footer-links">
             <Link to="/patient-login">Patient Account</Link>
             <Link to="/staff-login">Staff Account</Link>
+            <Link to="/admin-login">Admin Account</Link>
             <Link to="/faq">FAQ</Link>
           </div>
         </div>
