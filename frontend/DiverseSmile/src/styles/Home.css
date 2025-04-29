@@ -1,3 +1,6 @@
+/* src/styles/Home.css */
+
+/* Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -9,30 +12,29 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  margin: 0;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Logo */
 .navbar .logo {
   display: flex;
   align-items: center;
   font-size: 38px;
   font-weight: bold;
 }
-
 .navbar .logo img {
   width: 60px;
   height: 60px;
   margin-right: 9px;
 }
 
+/* Nav buttons */
 .nav-buttons {
   display: flex;
   gap: 20px;
   margin-right: 30px;
   align-items: center;
 }
-
 .nav-buttons button,
 .nav-btn,
 .appointment-btn {
@@ -44,13 +46,11 @@
   font-weight: 500;
   border-radius: 40px;
   cursor: pointer;
-  text-align: center;
   text-decoration: none;
-  transition: 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   outline: none;
 }
-
 .nav-buttons button:hover,
 .nav-btn:hover,
 .appointment-btn:hover {
@@ -59,14 +59,15 @@
   opacity: 0.95;
 }
 
+/* Home container */
 .home-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   text-align: center;
 }
 
+/* Hero */
 .hero-section {
   display: flex;
   justify-content: center;
@@ -75,35 +76,19 @@
   margin-top: 100px;
   padding: 160px;
 }
-
 .image-container {
   flex: 1;
   display: flex;
   justify-content: center;
 }
-
 .hero-image {
   width: 600px;
-  max-width: 8900px;
   height: auto;
   border-radius: 20px;
   margin-top: 90px;
   margin-right: 50px;
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
 }
-
-.additional-image-container {
-  display: flex;
-  justify-content: left;
-  margin-top: 0px;
-}
-
-.additional-image {
-  width: 600px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-}
-
 .text-container {
   flex: 1;
   max-width: 500px;
@@ -112,54 +97,42 @@
   align-items: flex-start;
   text-align: left;
 }
-
 .text-container h1 {
   font-size: 39px;
   font-weight: bold;
   margin-top: 100px;
   margin-bottom: 25px;
 }
-
 .text-container p {
   margin-bottom: 10px;
   font-size: 20px;
-  line-height: .5;
+  line-height: 1.2;
 }
 
+/* Services section */
 .services-section {
-  position: relative;
   background-color: #e2e0e0;
   padding: 50px 0;
   width: 100vw;
   margin: 0;
 }
-
-.bottom-left-logo {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  width: 100px;
-  height: auto;
-  opacity: 0.8;
-}
-
 .services-container {
   max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
 }
-
 .services-container h2 {
   font-size: 38px;
-  margin-bottom: 100px;
+  margin-bottom: 60px;
 }
 
+/* Services grid */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
+/* Service card */
 .service-card {
   background-color: #ffffff;
   border: 1px solid #ddd;
@@ -167,23 +140,45 @@
   padding: 20px;
   text-align: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+  /* Hover effect */
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
+  cursor: pointer;
+  will-change: transform, box-shadow, background-color, color;
+}
+.service-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  background-color: #A1EAEA;
+  color: white;
+  z-index: 1;
+}
+
+/* Ensure icon, title and description text also turn white on hover */
+.service-card:hover .service-icon,
+.service-card:hover h3,
+.service-card:hover p {
+  color: white;
 }
 
 .service-icon {
   font-size: 40px;
   margin-bottom: 10px;
 }
-
 .service-card h3 {
   font-size: 20px;
   margin-bottom: 10px;
 }
-
 .service-card p {
   font-size: 16px;
   color: #424141;
 }
 
+/* Contact & FAQ */
 .contact-section {
   background-color: #A1EAEA;
   padding: 40px 20px;
@@ -191,23 +186,19 @@
   width: 100%;
   margin: 0;
 }
-
 .contact-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
 }
-
 .contact-us,
 .office-hours {
   flex: 1;
 }
-
 .office-hours {
   margin-left: 100px;
 }
-
 .contact-us h2,
 .office-hours h2,
 .contact-us p,
@@ -217,7 +208,6 @@
   margin: 8px 0;
   margin-left: 30px;
 }
-
 .form-input {
   width: 100%;
   max-width: 280px;
@@ -228,23 +218,19 @@
   outline: none;
   transition: border 0.2s ease;
 }
-
 .form-input:focus {
   border-color: #4bc0c8;
   box-shadow: 0 0 0 2px rgba(75, 192, 200, 0.3);
 }
-
 .faq-section {
   padding: 60px 20px;
   background-color: #f5fdfd;
   text-align: center;
 }
-
 .faq-container {
   max-width: 800px;
   margin: auto;
 }
-
 .faq-btn {
   margin-top: 20px;
   display: inline-block;
@@ -257,10 +243,9 @@
   font-weight: 500;
   cursor: pointer;
   text-decoration: none;
-  transition: 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
-
 .faq-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
