@@ -1,6 +1,10 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/Home.css";
-import React from "react";
+
+// Background image import
+import homeback from "/src/assets/homeback.jpg";
+
 import DiverseSmileLogo from "/src/assets/DiverseSmileLogo.png";
 import Smile from "/src/assets/Smile.jpg";
 
@@ -51,15 +55,20 @@ const Home = () => {
         </div>
       </nav>
 
-      <div className="hero-section">
+      <div
+        className="hero-section"
+        style={{ backgroundImage: `url(${homeback})` }}
+      >
         <div className="image-container">
-          <img src={Smile} alt="Hero Image" className="hero-image" />
+          <img src={Smile} alt="Hero" className="hero-image" />
         </div>
         <div className="text-container">
-          <h1>Your Smile, <br /> Our Priority</h1>
+          <h1>Your Smile,<br/>Our Priority</h1>
           <p>Choose us and get the best dental services in</p>
           <p>the city. Rates and charges vary.</p>
-          <Link to="/patient-login" className="appointment-btn">Make an appointment</Link>
+          <Link to="/patient-login" className="appointment-btn">
+            Make an appointment
+          </Link>
         </div>
       </div>
 
@@ -67,8 +76,8 @@ const Home = () => {
         <div className="services-container">
           <h2>Our Services and Specialties</h2>
           <div className="services-grid">
-            {services.map((service, index) => (
-              <div key={index} className="service-card">
+            {services.map((service, idx) => (
+              <div key={idx} className="service-card">
                 <span className="service-icon">{service.icon}</span>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
