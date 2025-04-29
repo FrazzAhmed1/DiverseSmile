@@ -1,4 +1,7 @@
+// src/App.jsx
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Home from "./pages/Home";
 import PatientSignup from "./pages/PatientSignup";
 import StaffSignup from "./pages/StaffSignup";
@@ -16,20 +19,24 @@ import AppointmentScheduler from "./pages/AppointmentScheduler";
 import Reminder from "./pages/Reminder";
 import Faq from "./pages/Faq";
 import NotFound from "./pages/NotFound";
-import Footer from "./components/Footer";
 import LoginHours from "./pages/LoginHours";
-import ManuallyAddHours from "./pages/ManuallyAddHours"; 
+import ManuallyAddHours from "./pages/ManuallyAddHours";
 import PatientHistory from "./pages/PatientHistory";
 import PatientProfile from "./pages/PatientProfile";
 import PaymentSelection from "./pages/PaymentSelections";
 import PaymentProcess from "./pages/PaymentProcesses";
 import PaymentConfirmation from "./pages/PaymentConfirmation";
+
+import Footer from "./components/Footer";
+
 import "./styles/Footer.css";
 
 const App = () => {
   return (
     <Router>
       <div className="app-container">
+        {/* language switcher visible on every page */}
+
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -58,6 +65,7 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
+
         <Footer />
       </div>
     </Router>
