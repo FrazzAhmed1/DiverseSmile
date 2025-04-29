@@ -23,6 +23,7 @@ const Footer = () => {
         <div className="footer-section">
           <h3>Quick Links</h3>
           <div className="footer-links">
+          <Link to="/">Home</Link>
             <Link to="/patient-login">Patient Account</Link>
             <Link to="/staff-login">Staff Account</Link>
             <Link to="/admin-login">Admin Account</Link>
