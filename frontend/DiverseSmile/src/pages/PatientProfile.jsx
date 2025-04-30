@@ -94,10 +94,10 @@ const PatientProfile = () => {
   return (
     <div className="patient-profile-container">
       <button
-        className="back-button"
+        className="go-back-button"
         onClick={() => navigate("/patient-dashboard")}
       >
-        ← Back
+        â† Back
       </button>
       <h1 className="page-title">Patient Profile</h1>
       {error && <div className="error-message">{error}</div>}
