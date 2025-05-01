@@ -38,14 +38,17 @@
 
 .clock-in-button,
 .clock-out-button {
-  padding: 12px 24px;
-  font-size: 16px;
-  color: white;
-  border: none;
-  border-radius: 8px;
+  color: white !important;
+  padding: 0.8rem 2rem;
+  border-radius: 2rem;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  border: none !important;
   cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s ease;
+  font-family: inherit;
+  font-size: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .clock-in-button {
@@ -87,13 +90,17 @@
 
 .manual-add-hours-btn {
   background-color: #ffc107;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
+  color: white !important;
+  padding: 0.8rem 2rem;
+  border-radius: 2rem;
+  transition: transform 0.3s ease;
   text-decoration: none;
-  font-size: 16px;
-  font-weight: bold;
-  transition: background 0.3s ease;
+  border: none !important;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .manual-add-hours-btn:hover {
@@ -142,14 +149,17 @@
 /* Delete button */
 .delete-log-button {
   background-color: #dc3545;
-  color: white;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
+  color: white !important;
+  padding: 0.8rem 2rem;
+  border-radius: 2rem;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  border: none !important;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background 0.3s ease;
+  font-family: inherit;
+  font-size: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .delete-log-button:hover {
@@ -165,5 +175,5 @@
   font-weight: bold;
   color: #ffffff;
   background-color: #ffc107;
-  border-radius: 4px;
+  border-radius: 2rem;
 }
