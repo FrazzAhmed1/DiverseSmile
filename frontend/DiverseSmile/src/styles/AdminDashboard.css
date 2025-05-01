@@ -1,3 +1,4 @@
+//admin dashboard styles
 :root {
     --primary-color: #2a5e5e;
     --secondary-color: #a1eaea;
@@ -274,7 +275,7 @@
     }
 }
 
-
+//staff performance tracking section
 .performance-entry {
     margin-bottom: 30px;
     padding: 20px;
