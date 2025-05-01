@@ -56,7 +56,7 @@ export default function ManuallyAddHours() {
 
   return (
     <div className="manual-log-container">
-      <Link to="/login-hours" className="back-link">
+      <Link to="/login-hours" className="go-back-button">
         🔙 Back to Log Hours
       </Link>
 
