@@ -89,7 +89,7 @@ export default function LoginHours() {
 
   return (
     <div className="login-hours-container">
-      <Link to="/staff-dashboard" className="back-link">
+      <Link to="/staff-dashboard" className="go-back-button">
         🔙 Back to Dashboard
       </Link>
 
