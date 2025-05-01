@@ -229,7 +229,7 @@ const StaffDashboard = () => {
                         {log.isManual && <span className="manual-label">Manually Added</span>}
                       </p>
                       <button
-                        className="clock-out-button"
+                        className="delete-log-button"
                         onClick={() => deleteLog(log._id)}
                       >
                         ❌ Delete
