@@ -1,88 +1,88 @@
-// src/pages/Home.jsx
-
-import React from "react";
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-
-import LanguageSelector from "../components/LanguageSelector";
 import "../styles/Home.css";
-
+import React from "react";
 import DiverseSmileLogo from "/src/assets/DiverseSmileLogo.png";
-import HomeBack from "/src/assets/homeback.mp4";
-//services section
+import Smile from "/src/assets/Smile.jpg";
+
 const services = [
-  { key: "generalDentistry", descKey: "generalDentistryDesc", icon: "🦷" },
-  { key: "cosmeticDentistry", descKey: "cosmeticDentistryDesc", icon: "💎" },
-  { key: "implantDentistry", descKey: "implantDentistryDesc", icon: "🦷" },
-  { key: "oralSurgery", descKey: "oralSurgeryDesc", icon: "🔪" },
-  { key: "endodontics", descKey: "endodonticsDesc", icon: "🦴" },
-  { key: "sedationDentistry", descKey: "sedationDentistryDesc", icon: "😌" },
+  {
+    title: "General Dentistry",
+    description: "Comprehensive care including exams, cleanings, and fillings.",
+    icon: "🦷",
+  },
+  {
+    title: "Cosmetic Dentistry",
+    description: "Enhances appearance of smile with services like teeth whitening and veneers.",
+    icon: "💎",
+  },
+  {
+    title: "Implant Dentistry",
+    description: "Permanent solutions for missing teeth with dental implants.",
+    icon: "🦷",
+  },
+  {
+    title: "Oral Surgery",
+    description: "Extractions, jaw surgeries, and other surgical procedures.",
+    icon: "🔪",
+  },
+  {
+    title: "Endodontics",
+    description: "Treats issues related to the inside of the tooth, including root canals.",
+    icon: "🦴",
+  },
+  {
+    title: "Sedation Dentistry",
+    description: "Helps patients feel relaxed and comfortable during procedures through various sedation options.",
+    icon: "😌",
+  },
 ];
 
 const Home = () => {
-  const { t } = useTranslation();
-//navigation bar section
   return (
     <div className="home-container">
       <nav className="navbar">
-        <div className="nav-left">
-          <div className="logo">
-            <img src={DiverseSmileLogo} alt={t("logoAlt", "Logo")} />
-            {t("brandName", "DiverseSmile")}
-          </div>
-          <LanguageSelector />
+        <div className="logo">
+          <img src={DiverseSmileLogo} alt="Logo" />
+          DiverseSmile
         </div>
-
-        <div className="nav-right">
-          <Link to="/patient-login" className="nav-btn">
-            {t("login")}
-          </Link>
-          <Link to="/patient-signup" className="nav-btn">
-            {t("signup")}
-          </Link>
+        <div className="nav-buttons">
+          <Link to="/patient-login" className="nav-btn">Login</Link>
+          <Link to="/patient-signup" className="nav-btn">Sign up</Link>
         </div>
       </nav>
 
-      <section className="hero-section">
-        <video
-          className="hero-bg-video"
-          src={HomeBack}
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
-        <div className="hero-content">
-          <h1>{t("yourSmile")}</h1>
-          <p>{t("chooseUs")}</p>
-          <Link to="/patient-login" className="appointment-btn">
-            {t("makeAppointment")}
-          </Link>
+      <div className="hero-section">
+        <div className="image-container">
+          <img src={Smile} alt="Hero Image" className="hero-image" />
         </div>
-      </section>
+        <div className="text-container">
+          <h1>Your Smile, <br /> Our Priority</h1>
+          <p>Choose us and get the best dental services in</p>
+          <p>the city. Rates and charges vary.</p>
+          <Link to="/patient-login" className="appointment-btn">Make an appointment</Link>
+        </div>
+      </div>
 
       <div className="services-section">
         <div className="services-container">
-          <h2>{t("Our Services")}</h2>
+          <h2>Our Services and Specialties</h2>
           <div className="services-grid">
-            {services.map(({ key, descKey, icon }) => (
-              <div key={key} className="service-card">
-                <span className="service-icon">{icon}</span>
-                <h3>{t(key)}</h3>
-                <p>{t(descKey)}</p>
+            {services.map((service, index) => (
+              <div key={index} className="service-card">
+                <span className="service-icon">{service.icon}</span>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
-//faq section
+      
       <div className="faq-section">
         <div className="faq-container">
-          <h2>{t("frequentlyAskedQuestions")}</h2>
-          <p>{t("haveQuestions")}</p>
-          <Link to="/faq" className="faq-btn">
-            {t("readFAQs")}
-          </Link>
+          <h2>Frequently Asked Questions</h2>
+          <p>Have questions? We have answers.</p>
+          <Link to="/faq" className="faq-btn">Read FAQs</Link>
         </div>
       </div>
     </div>
