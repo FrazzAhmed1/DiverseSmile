@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/SignupForm.css";
 
+// storing form data holding key information
 const SignupForm = ({ role, onSubmit, message }) => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -9,11 +10,11 @@ const SignupForm = ({ role, onSubmit, message }) => {
     email: "",
     password: "",
   });
-
+ // handles changes for form inputs for the sign up form
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+ // handles form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(formData);
