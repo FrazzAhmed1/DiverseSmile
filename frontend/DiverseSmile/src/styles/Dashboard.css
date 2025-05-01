@@ -227,16 +227,18 @@ body {
 
 /* Go to Clock In/Out button */
 .go-to-login-hours {
-  background-color: #a1eaea;
-  color: #2a5e5e;
-  font-weight: bold;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #00bcd4, #2196f3);
+  color: white !important;
+  padding: 0.8rem 2rem;
+  border-radius: 2rem;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  border: none !important;
   cursor: pointer;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  margin: 0;
+  font-family: inherit;
+  font-size: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .go-to-login-hours:hover {
