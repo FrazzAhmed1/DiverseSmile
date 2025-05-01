@@ -3,7 +3,7 @@ import "../styles/Home.css";
 import React from "react";
 import DiverseSmileLogo from "/src/assets/DiverseSmileLogo.png";
 import Smile from "/src/assets/Smile.jpg";
-
+// array containing dental services and some description
 const services = [
   {
     title: "General Dentistry",
