@@ -66,7 +66,7 @@ const PatientHistory = () => {
   if (loading) {
     return <div className="loading">Loading patients...</div>;
   }
-
+//patient search
   return (
     <div className="patient-history-container">
       <h1 className="page-title">Patient History</h1>
@@ -95,7 +95,7 @@ const PatientHistory = () => {
           </div>
         ))}
       </div>
-
+//patient history and info
       {selectedPatient && (
         <div className="patient-details">
           <h2>{selectedPatient.firstName} {selectedPatient.lastName}</h2>
