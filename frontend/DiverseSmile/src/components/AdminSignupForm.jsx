@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/SignupForm.css";
-
+// storing the form data in state
 const AdminSignupForm = ({ onSubmit, message, privateKey, type }) => {
     const [formData, setFormData] = useState({
         firstName: "",
@@ -10,7 +10,7 @@ const AdminSignupForm = ({ onSubmit, message, privateKey, type }) => {
         email: "",
         privateKey: "",
     });
-
+// handles change for input information
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
