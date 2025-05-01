@@ -9,7 +9,7 @@ import "../styles/Home.css";
 
 import DiverseSmileLogo from "/src/assets/DiverseSmileLogo.png";
 import HomeBack from "/src/assets/homeback.mp4";
-
+//services section
 const services = [
   { key: "generalDentistry", descKey: "generalDentistryDesc", icon: "🦷" },
   { key: "cosmeticDentistry", descKey: "cosmeticDentistryDesc", icon: "💎" },
@@ -21,7 +21,7 @@ const services = [
 
 const Home = () => {
   const { t } = useTranslation();
-
+//navigation bar section
   return (
     <div className="home-container">
       <nav className="navbar">
@@ -75,7 +75,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-
+//faq section
       <div className="faq-section">
         <div className="faq-container">
           <h2>{t("frequentlyAskedQuestions")}</h2>
