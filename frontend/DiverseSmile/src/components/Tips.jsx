@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/Dashboard.css";
-
+// displays dental care recommendations and tips to be shown on patient page 
 const Tips = () => {
     return (
         <div className="payments">
